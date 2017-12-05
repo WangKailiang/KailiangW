@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/KailiangW/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/KailiangW/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/KailiangW/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/KailiangW/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/KailiangW/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/KailiangW/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/KailiangW/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="译自：PPK-The this keywordthis是JavaScript最重要的关键字之一。本文将会介绍它是如何工作的。下面我先讲如何在event handling(事件处理)中用它，然后再讲 this 的其他用法。所有者(Owner)接下来我们要探讨的问题是：doSomething()函数中的this指向的是什么">
+<meta name="keywords" content="Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript中的this关键字">
+<meta property="og:url" content="https://wangkailiang.github.io/KailiangW/2017/10/02/Javascript中的this关键字/index.html">
+<meta property="og:site_name" content="逆天凌少">
+<meta property="og:description" content="译自：PPK-The this keywordthis是JavaScript最重要的关键字之一。本文将会介绍它是如何工作的。下面我先讲如何在event handling(事件处理)中用它，然后再讲 this 的其他用法。所有者(Owner)接下来我们要探讨的问题是：doSomething()函数中的this指向的是什么？123function doSomething() &amp;#123;   this">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-05T12:18:48.617Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript中的this关键字">
+<meta name="twitter:description" content="译自：PPK-The this keywordthis是JavaScript最重要的关键字之一。本文将会介绍它是如何工作的。下面我先讲如何在event handling(事件处理)中用它，然后再讲 this 的其他用法。所有者(Owner)接下来我们要探讨的问题是：doSomething()函数中的this指向的是什么？123function doSomething() &amp;#123;   this">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/KailiangW/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wangkailiang.github.io/KailiangW/2017/10/02/Javascript中的this关键字/"/>
+
+
+
+
+
+  <title>Javascript中的this关键字 | 逆天凌少</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/KailiangW/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">逆天凌少</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/KailiangW/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/KailiangW/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/KailiangW/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/KailiangW/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/KailiangW/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/KailiangW/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wangkailiang.github.io/KailiangW/KailiangW/2017/10/02/Javascript中的this关键字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王凯亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/KailiangW/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逆天凌少">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Javascript中的this关键字</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T10:44:25+08:00">
+                2017-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/KailiangW/categories/Javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>译自：<a href="https://www.quirksmode.org/js/this.html" target="_blank" rel="noopener">PPK-The this keyword</a><br><strong>this是JavaScript最重要的关键字之一。本文将会介绍它是如何工作的。</strong><br>下面我先讲如何在event handling(事件处理)中用它，然后再讲 this 的其他用法。<br><strong>所有者(Owner)</strong><br>接下来我们要探讨的问题是：doSomething()函数中的<strong>this</strong>指向的是什么？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function doSomething() &#123;</span><br><span class="line">   this.style.color = &apos;#cc0000&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在JavaScript中，<strong>this</strong>通常指的是正执行的函数的所有者，或者是一个函数作为方法的对象。 当我们在页面中定义我们的函数doSomething()时，其所有者是这个页面，或者更确切地说，是JavaScript的窗口对象（或全局对象）。 而<strong>onclick</strong>属性由其所属的HTML元素所拥有。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">------------ window --------------------------------------</span><br><span class="line">|                                          / \           |</span><br><span class="line">|                                           |            |</span><br><span class="line">|                                          this          |</span><br><span class="line">|   ----------------                        |            |</span><br><span class="line">|   | HTML element | &lt;-- this         -----------------  |</span><br><span class="line">|   ----------------      |           | doSomething() |  |</span><br><span class="line">|               |         |           -----------------  |</span><br><span class="line">|          --------------------                          |</span><br><span class="line">|          | onclick property |                          |</span><br><span class="line">|          --------------------                          |</span><br><span class="line">|                                                        |</span><br><span class="line">----------------------------------------------------------</span><br></pre></td></tr></table></figure></p>
+<p>如果我们执行doSomething()前没有做任何操作，那么<strong>this</strong>关键字指的是窗口。该函数尝试改变窗口的style.color。 由于窗口没有样式对象，因此函数可能会失败，并产生JavaScript错误。</p>
+<h2 id="拷贝-copying"><a href="#拷贝-copying" class="headerlink" title="拷贝(copying)"></a><strong>拷贝(copying)</strong></h2><p>因此，如果想要正确且高效的使用<strong>this</strong>关键字，你要将包含<strong>this</strong>的函数绑定到相应的HTML元素标签上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.onclick = doSomething;</span><br></pre></td></tr></table></figure></p>
+<p>这里，将doSomethis()作为element的onclick属性。 当点击该HTML元素时，onclick事件处理程序将被执行，然后该HTML元素的颜色被改变。此时的<strong>this</strong>是指该HTML元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">------------ window --------------------------------------</span><br><span class="line">|                                                        |</span><br><span class="line">|                                                        |</span><br><span class="line">|                                                        |</span><br><span class="line">|   ----------------                                     |</span><br><span class="line">|   | HTML element | &lt;-- this         -----------------  |</span><br><span class="line">|   ----------------      |           | doSomething() |  |</span><br><span class="line">|               |         |           -----------------  |</span><br><span class="line">|          -----------------------          |            |</span><br><span class="line">|          |copy of doSomething()|  &lt;-- copy function    |</span><br><span class="line">|          -----------------------                       |</span><br><span class="line">|                                                        |</span><br><span class="line">----------------------------------------------------------</span><br></pre></td></tr></table></figure></p>
+<p>当然，我们可以将函数复制到多个事件处理程序中。 每次<strong>this</strong>将引用正确的HTML元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">------------ window --------------------------------------</span><br><span class="line">|                                                        |</span><br><span class="line">|                                                        |</span><br><span class="line">|                                                        |</span><br><span class="line">|   ----------------                                     |</span><br><span class="line">|   | HTML element | &lt;-- this         -----------------  |</span><br><span class="line">|   ----------------      |           | doSomething() |  |</span><br><span class="line">|               |         |           -----------------  |</span><br><span class="line">|          -----------------------          |            |</span><br><span class="line">|          |copy of doSomething()|  &lt;-- copy function    |</span><br><span class="line">|          -----------------------          |            |</span><br><span class="line">|                                           |            |</span><br><span class="line">|   -----------------------                 |            |</span><br><span class="line">|   | another HTML element| &lt;-- this        |            |</span><br><span class="line">|   -----------------------     |           |            |</span><br><span class="line">|               |               |           |            |</span><br><span class="line">|          -----------------------          |            |</span><br><span class="line">|          |copy of doSomething()|  &lt;-- copy function    |</span><br><span class="line">|          -----------------------                       |</span><br><span class="line">|                                                        |</span><br><span class="line">----------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<p>每次函数被调用时，<strong>this</strong> 指向的是当前所处理的事件的那个 HTML 元素。</p>
+<h2 id="指向-referring"><a href="#指向-referring" class="headerlink" title="指向(referring)"></a><strong>指向(referring)</strong></h2><p>要是用行内事件注册呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;element onclick=&quot;doSomething()&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>你没有复制这个函数！ 相反，你只是引用了它。它们之间是有很大差异的。 这里，onclick属性不包含实际的函数，只是一个函数调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doSomething();</span><br></pre></td></tr></table></figure>
+<p>因此，它的意思是：“到 doSomething() 那里去执行它”。而在doSomething()里面，<strong>this</strong> 关键字再次指向全局 window 对象，那么函数会返回错误的消息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">------------ window --------------------------------------</span><br><span class="line">|                                          / \           |</span><br><span class="line">|                                           |            |</span><br><span class="line">|                                          this          |</span><br><span class="line">|   ----------------                        |            |</span><br><span class="line">|   | HTML element | &lt;-- this         -----------------  |</span><br><span class="line">|   ----------------      |           | doSomething() |  |</span><br><span class="line">|               |         |           -----------------  |</span><br><span class="line">|          -----------------------         / \           |</span><br><span class="line">|          | go to doSomething() |          |            |</span><br><span class="line">|          | and execute it      | ---- reference to     |</span><br><span class="line">|          -----------------------       function        |</span><br><span class="line">|                                                        |</span><br><span class="line">----------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h2 id="差异之处-The-Difference"><a href="#差异之处-The-Difference" class="headerlink" title="差异之处(The Difference)"></a>差异之处(The Difference)</h2><p>如果要使用<strong>this</strong>来访问处理该事件的HTML元素，则必须确保该关键字实际上已写入onclick属性。 只有在这种情况下，它才引用事件处理程序注册的HTML元素。 所以如果你这样做：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">element.onclick = doSomething;</span><br><span class="line">alert(element.onclick)</span><br></pre></td></tr></table></figure>
+<p>你将会得到以下结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function doSomething()</span><br><span class="line">&#123;</span><br><span class="line">	this.style.color = &apos;#cc0000&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>您可以看到，<strong>this</strong>关键字存在于onclick方法中。 因此它是指HTML元素。<br>如果你这样做：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;element onclick=&quot;doSomething()&quot;&gt;</span><br><span class="line">alert(element.onclick)</span><br></pre></td></tr></table></figure>
+<p>得到的结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function onclick()</span><br><span class="line">&#123;</span><br><span class="line">	doSomething()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这只是对doSomething()函数的引用。<strong>this</strong>关键字不在onclick方法中，因此它不指向HTML元素。</p>
+<h2 id="例子-拷贝"><a href="#例子-拷贝" class="headerlink" title="例子-拷贝"></a><strong>例子-拷贝</strong></h2><p>在下面示例中，this 写入 onclick 方法中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">element.onclick = doSomething</span><br><span class="line">element.addEventListener(&apos;click&apos;,doSomething,false)</span><br><span class="line">element.onclick = function () &#123;this.style.color = &apos;#cc0000&apos;;&#125;</span><br><span class="line">&lt;element onclick=&quot;this.style.color = &apos;#cc0000&apos;;&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="例子-引用"><a href="#例子-引用" class="headerlink" title="例子-引用"></a><strong>例子-引用</strong></h2><p>在下面的示例中，<strong>this</strong>指向的是window。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">element.onclick = function () &#123;doSomething()&#125;</span><br><span class="line">element.attachEvent(&apos;onclick&apos;,doSomething)</span><br><span class="line">&lt;element onclick=&quot;doSomething()&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>使用行内事件注册时，也可以把 <strong>this</strong> 发送给引用的函数。所以可以这么用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;element onclick=&quot;doSomething(this)&quot;&gt;</span><br><span class="line"></span><br><span class="line">function doSomething(obj) &#123;</span><br><span class="line">	// this is present in the event handler and is sent to the function</span><br><span class="line">	// obj now refers to the HTML element, so we can do</span><br><span class="line">	obj.style.color = &apos;#cc0000&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/KailiangW/tags/Javascript/" rel="tag"># Javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/KailiangW/2017/10/02/Javascript闭包/" rel="next" title="Javascript闭包">
+                <i class="fa fa-chevron-left"></i> Javascript闭包
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/KailiangW/2017/10/02/GIS相关数据下载网站、软件和工具等/" rel="prev" title="GIS相关数据下载网站、软件和工具等">
+                GIS相关数据下载网站、软件和工具等 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">王凯亮</p>
+              <p class="site-description motion-element" itemprop="description">一个GIS专业的前端小白练级打怪的攻略</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/KailiangW/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/KailiangW/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/KailiangW/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#拷贝-copying"><span class="nav-number">1.</span> <span class="nav-text">拷贝(copying)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指向-referring"><span class="nav-number">2.</span> <span class="nav-text">指向(referring)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#差异之处-The-Difference"><span class="nav-number">3.</span> <span class="nav-text">差异之处(The Difference)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子-拷贝"><span class="nav-number">4.</span> <span class="nav-text">例子-拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子-引用"><span class="nav-number">5.</span> <span class="nav-text">例子-引用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王凯亮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/KailiangW/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/KailiangW/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/KailiangW/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/KailiangW/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/KailiangW/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

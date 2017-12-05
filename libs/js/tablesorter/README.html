@@ -1,0 +1,140 @@
+<p>tablesorter (FORK) is a jQuery plugin for turning a standard HTML table with THEAD and TBODY tags into a sortable table without page refreshes. tablesorter can successfully parse and sort many types of data including linked data in a cell. This forked version adds lots of new enhancements including: alphanumeric sorting, pager callback functons, multiple widgets providing column styling, ui theme application, sticky headers, column filters and resizer, as well as extended documentation with a lot more demos.</p>
+<p><a href="http://bower.io/search/?q=jquery.tablesorter"><img src="https://img.shields.io/bower/v/jquery.tablesorter.svg" alt="Bower Version"></a> <a href="https://npmjs.org/package/tablesorter"><img src="https://img.shields.io/npm/v/tablesorter.svg" alt="NPM Version"></a> <a href="https://david-dm.org/Mottie/tablesorter?type=dev"><img src="https://img.shields.io/david/dev/Mottie/tablesorter.svg" alt="devDependency Status"></a> <a href="https://zenhub.io"><img src="https://cdn.rawgit.com/Mottie/tablesorter/master/docs/img/zenhub-badge.svg" alt="zenhub-image"></a></p>
+<h3 id="Notice"><a href="#Notice" class="headerlink" title="Notice!"></a>Notice!</h3><ul>
+<li>Because of the change to the internal cache, the tablesorter v2.16+ core, filter widget and pager (both plugin &amp; widget) will only work with the same version or newer files.</li>
+</ul>
+<h3 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a><a href="https://mottie.github.io/tablesorter/docs/">Documentation</a></h3><ul>
+<li>See the <a href="https://mottie.github.io/tablesorter/docs/">full documentation</a>.</li>
+<li>All of the <a href="http://tablesorter.com/docs/">original document pages</a> have been included.</li>
+<li>Information from my blog post on <a href="https://wowmotty.blogspot.com/2011/06/jquery-tablesorter-missing-docs.html">undocumented options</a> and lots of new demos have also been included.</li>
+<li>Change log moved from included text file into the <a href="https://github.com/Mottie/tablesorter/wiki/Changes">wiki documentation</a>.</li>
+</ul>
+<h3 id="Questions"><a href="#Questions" class="headerlink" title="Questions?"></a>Questions?</h3><p><a href="https://kiwiirc.com/client/irc.freenode.net#tablesorter"><img src="https://img.shields.io/badge/irc-%23tablesorter-yellowgreen.svg" alt="irc-image"></a> <a href="https://gitter.im/Mottie/tablesorter"><img src="https://img.shields.io/badge/GITTER-join%20chat-yellowgreen.svg" alt="gitter-image"></a> <a href="http://stackoverflow.com/questions/tagged/tablesorter"><img src="https://img.shields.io/badge/stackoverflow-tablesorter-blue.svg" alt="stackoverflow-image"></a></p>
+<ul>
+<li>Check the <a href="https://github.com/Mottie/tablesorter/wiki/FAQ">FAQ</a> page.</li>
+<li>Search the <a href="https://mottie.github.io/tablesorter/docs/">main documentation</a> (click the menu button in the upper left corner).</li>
+<li>Search the <a href="https://github.com/Mottie/tablesorter/issues">issues</a> to see if the question or problem has been brought up before, and hopefully resolved.</li>
+<li>If someone is available, ask your question in the <code>#tablesorter</code> IRC channel at freenode.net.</li>
+<li>Ask your question at <a href="https://stackoverflow.com/questions/tagged/tablesorter">Stackoverflow</a> using a tablesorter tag.</li>
+<li>Please don’t open a <a href="https://github.com/Mottie/tablesorter/issues">new issue</a> unless it really is an issue with the plugin, or a feature request. Thanks!</li>
+</ul>
+<h3 id="Demos"><a href="#Demos" class="headerlink" title="Demos"></a>Demos</h3><ul>
+<li><a href="https://mottie.github.io/tablesorter/">Basic alpha-numeric sort Demo</a>.</li>
+<li>Links to demo pages can be found within the main <a href="https://mottie.github.io/tablesorter/docs/">documentation</a>.</li>
+<li>More demos &amp; playgrounds - updated in the <a href="https://github.com/Mottie/tablesorter/wiki">wiki pages</a>.</li>
+</ul>
+<h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><ul>
+<li>Multi-column alphanumeric sorting and filtering.</li>
+<li>Multi-tbody sorting - see the <a href="https://mottie.github.io/tablesorter/docs/index.html#options">options</a> table on the main document page.</li>
+<li>Supports <a href="https://mottie.github.io/tablesorter/docs/example-option-theme-bootstrap-v3.html">Bootstrap v2-4</a>.</li>
+<li>Parsers for sorting text, alphanumeric text, URIs, integers, currency, floats, IP addresses, dates (ISO, long and short formats) &amp; time. <a href="https://mottie.github.io/tablesorter/docs/example-parsers.html">Add your own easily</a>.</li>
+<li>Inline editing - see <a href="https://mottie.github.io/tablesorter/docs/example-widget-editable.html">demo</a>.</li>
+<li>Support for ROWSPAN and COLSPAN on TH elements.</li>
+<li>Support secondary “hidden” sorting (e.g., maintain alphabetical sort when sorting on other criteria).</li>
+<li>Extensibility via <a href="https://mottie.github.io/tablesorter/docs/example-widgets.html">widget system</a>.</li>
+<li>Cross-browser: IE 6.0+, FF 2+, Safari 2.0+, Opera 9.0+, Chrome 5.0+.</li>
+<li>Small code size, starting at 25K minified.</li>
+<li>Works with jQuery 1.2.6+ (jQuery 1.4.1+ needed with some widgets).</li>
+<li>Works with jQuery 1.9+ (<code>$.browser.msie</code> was removed; needed in the original version).</li>
+</ul>
+<h3 id="Licensing"><a href="#Licensing" class="headerlink" title="Licensing"></a>Licensing</h3><ul>
+<li>Copyright (c) 2007 Christian Bach.</li>
+<li>The original version can be found at <a href="http://tablesorter.com">http://tablesorter.com</a>, or on <a href="https://github.com/christianbach/tablesorter">GitHub</a>.</li>
+<li>Dual licensed under the <a href="https://opensource.org/licenses/mit-license.php">MIT</a> or <a href="https://www.gnu.org/licenses/gpl-2.0.html">GPLv2</a> licenses (pick one).</li>
+</ul>
+<h3 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h3><ul>
+<li>Get all files: <a href="https://github.com/Mottie/tablesorter/archive/master.zip">zip</a> or <a href="https://github.com/Mottie/tablesorter/archive/master.tar.gz">tar.gz</a>.</li>
+<li>Use <a href="https://bower.io/">bower</a>: <code>bower install jquery.tablesorter</code>.</li>
+<li>Use <a href="https://nodejs.org/">node.js</a>: <code>npm install tablesorter</code>.</li>
+<li>CDNJS: <a href="https://cdnjs.com/libraries/jquery.tablesorter">https://cdnjs.com/libraries/jquery.tablesorter</a></li>
+<li>jsDelivr: <a href="http://www.jsdelivr.com/?query=tablesorter">http://www.jsdelivr.com/?query=tablesorter</a></li>
+</ul>
+<h3 id="Related-Projects"><a href="#Related-Projects" class="headerlink" title="Related Projects"></a>Related Projects</h3><ul>
+<li><a href="https://github.com/themilkman/jquery-tablesorter-rails">Plugin for Rails</a>. Maintained by <a href="https://github.com/themilkman">themilkman</a>.</li>
+<li><a href="https://github.com/alexweissman/UserFrosting">UserFrosting</a> (A secure, modern user management system for PHP that uses tablesorter) by <a href="https://github.com/alexweissman">alexweissman</a>.</li>
+<li><a href="https://getgrav.org/">Grav CMS</a>: <code>bin/gpm install tablesorter</code> (<a href="https://github.com/Perlkonig/grav-plugin-tablesorter">ref</a>).</li>
+<li><a href="https://github.com/isg-software/tablesorter-pagercontrols">tablesorter-pagercontrols</a> &ndash; programmatically adds pager controls below a table and applies the pager add-on for large HTML tables by <a href="https://github.com/isg-software">isg-software</a>.</li>
+</ul>
+<h3 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h3><p>If you would like to contribute, please…</p>
+<ol>
+<li>Fork.</li>
+<li>Make changes in a branch &amp; add unit tests.</li>
+<li>Run <code>grunt test</code> (if qunit fails, run it again - it’s fickle).</li>
+<li>Create a pull request.</li>
+</ol>
+<h3 id="Special-Thanks"><a href="#Special-Thanks" class="headerlink" title="Special Thanks"></a>Special Thanks</h3><ul>
+<li>Big shout-out to <a href="https://github.com/NickCraver">Nick Craver</a> for getting rid of the <code>eval()</code> function that was previously needed for multi-column sorting.</li>
+<li>Big thanks to <a href="https://github.com/thezoggy">thezoggy</a> for helping with code, themes and providing valuable feedback.</li>
+<li>Big thanks to <a href="https://github.com/TheSin-">ThsSin-</a> for taking over for a while and also providing valuable feedback.</li>
+<li>Thanks to <a href="https://github.com/prijutme4ty">prijutme4ty</a> for numerous contributions!</li>
+<li>Also extra thanks to <a href="https://github.com/christhomas">christhomas</a> and <a href="https://github.com/Lynesth">Lynesth</a> for help with code.</li>
+<li>And, of course thanks to everyone else that has <a href="https://github.com/Mottie/tablesorter/blob/master/AUTHORS">contributed</a>, and continues to contribute through pull requests and open issues to this forked project!</li>
+</ul>
+<h3 id="Recent-Changes"><a href="#Recent-Changes" class="headerlink" title="Recent Changes"></a>Recent Changes</h3><p>View the <a href="https://github.com/Mottie/tablesorter/wiki/Changes">complete change log here</a>.</p>
+<h4 id="Version-2-28-15-7-4-2017"><a href="#Version-2-28-15-7-4-2017" class="headerlink" title="Version 2.28.15 (7/4/2017)"></a><a name="v2.28.15">Version 2.28.15</a> (7/4/2017)</h4><ul>
+<li>Core:<ul>
+<li>Use calculated index instead of DOM index. See <a href="https://github.com/Mottie/tablesorter/pull/1424">pull #1424</a>; thanks <a href="https://github.com/ced-b">@ced-b</a>!</li>
+<li>Fix check count cell indexing.</li>
+</ul>
+</li>
+<li>ColumnSelector:<ul>
+<li>Remove colspan adjustments when widget removed.</li>
+<li>Include tbody colspan updates on removal.</li>
+</ul>
+</li>
+<li>Filter:<ul>
+<li>Add namespacing to filter-formatter listeners. Needed to prevent JS error when a “resetToLoadState” is triggered and the “filterFomatterUpdate” bindings are still firing.</li>
+<li>Fix namespacing of events.</li>
+</ul>
+</li>
+<li>Sort2Hash:<ul>
+<li>Prevent filter update if unchanged &amp; compare (with) hash filter.</li>
+<li>Fix p’s (reference to pager object).</li>
+</ul>
+</li>
+<li>Docs<ul>
+<li>CSS fixed to comply with editable_wrapContent : <code>&lt;div&gt;</code>. See <a href="https://github.com/Mottie/tablesorter/pull/1420">pull #1420</a>; thanks <a href="https://github.com/LaurentBarbareau">@LaurentBarbareau</a>!</li>
+<li>Remove note on contenteditable wrapping. See <a href="https://github.com/Mottie/tablesorter/pull/1420">pull #1420</a>.</li>
+<li>Update pager widget options in demo code.</li>
+<li>Use src files in filter formatter demo for testing.</li>
+</ul>
+</li>
+<li>Meta:<ul>
+<li>Include <code>js</code> &amp; <code>css</code> folders with bower installs.</li>
+</ul>
+</li>
+</ul>
+<h4 id="Version-2-28-14-6-8-2017"><a href="#Version-2-28-14-6-8-2017" class="headerlink" title="Version 2.28.14 (6/8/2017)"></a><a name="v2.28.14">Version 2.28.14</a> (6/8/2017)</h4><ul>
+<li>Core:<ul>
+<li>Show console error for mismatched column count. See <a href="https://github.com/Mottie/tablesorter/issues/1415">issue #1415</a>.</li>
+</ul>
+</li>
+<li>Pager:<ul>
+<li>(addon) Ensure ajax is called after filter widget init. Fixes <a href="https://github.com/Mottie/tablesorter/issues/1389">issue #1389</a>.</li>
+<li>(addon) Fix height issues for certain browsers (border-spacing). See <a href="https://github.com/Mottie/tablesorter/pull/1418">pull #1418</a>; thanks <a href="https://github.com/DoctorWhite">@DoctorWhite</a></li>
+<li>(widget) Apply height adjustment code to pager widget.</li>
+<li>Use selectorRemove to remove error rows. Removes error rows with dynamically changed class names.</li>
+</ul>
+</li>
+<li>Meta:<ul>
+<li>Added <a href="https://github.com/Mottie/tablesorter/blob/master/AUTHORS">AUTHORS</a> file.</li>
+</ul>
+</li>
+</ul>
+<h4 id="Version-2-28-13-6-2-2017"><a href="#Version-2-28-13-6-2-2017" class="headerlink" title="Version 2.28.13 (6/2/2017)"></a><a name="v2.28.13">Version 2.28.13</a> (6/2/2017)</h4><ul>
+<li>Core:<ul>
+<li>Add cssIconDisabled option. See <a href="https://github.com/Mottie/tablesorter/issues/1409">issue #1409</a>.</li>
+<li>Coerce sort natural elements into strings. See <a href="https://github.com/Mottie/tablesorter/issues/1415">issue #1415</a>.</li>
+</ul>
+</li>
+<li>StickyHeaders:<ul>
+<li>Fix dynamic updating of offset. Fixes <a href="https://github.com/Mottie/tablesorter/issues/1412">issue #1412</a>.</li>
+<li>Init with visible headers on partial scroll</li>
+</ul>
+</li>
+<li>Meta:<ul>
+<li>Set jQuery dependency back to &gt;=1.2.6. Fixes <a href="https://github.com/Mottie/tablesorter/issues/1411">issue #1411</a>.</li>
+<li>Add <code>package-lock.json</code> file.</li>
+</ul>
+</li>
+</ul>

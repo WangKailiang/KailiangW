@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/KailiangW/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/KailiangW/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/KailiangW/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/KailiangW/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/KailiangW/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/KailiangW/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/KailiangW/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 引言如果您了解JavaScript函数和模块的概念，学习闭包对您来说应该不是一个大问题。如果你刚刚接触JavaScript，没有了解过这两个概念，那也没问题。闭包属于高级JavaScript概念的类别，但相信我，如果你知道和了解内部函数的工作原理，理解闭包将是小菜一碟。 2.内部函数内部函数从根本上说是“函数内的">
+<meta name="keywords" content="Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript闭包">
+<meta property="og:url" content="https://wangkailiang.github.io/KailiangW/2017/10/02/Javascript闭包/index.html">
+<meta property="og:site_name" content="逆天凌少">
+<meta property="og:description" content="1. 引言如果您了解JavaScript函数和模块的概念，学习闭包对您来说应该不是一个大问题。如果你刚刚接触JavaScript，没有了解过这两个概念，那也没问题。闭包属于高级JavaScript概念的类别，但相信我，如果你知道和了解内部函数的工作原理，理解闭包将是小菜一碟。 2.内部函数内部函数从根本上说是“函数内的函数”。 JavaScript支持嵌套函数，这意味着您可以在函数内创建一个或多">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-05T12:20:12.392Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript闭包">
+<meta name="twitter:description" content="1. 引言如果您了解JavaScript函数和模块的概念，学习闭包对您来说应该不是一个大问题。如果你刚刚接触JavaScript，没有了解过这两个概念，那也没问题。闭包属于高级JavaScript概念的类别，但相信我，如果你知道和了解内部函数的工作原理，理解闭包将是小菜一碟。 2.内部函数内部函数从根本上说是“函数内的函数”。 JavaScript支持嵌套函数，这意味着您可以在函数内创建一个或多">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/KailiangW/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wangkailiang.github.io/KailiangW/2017/10/02/Javascript闭包/"/>
+
+
+
+
+
+  <title>Javascript闭包 | 逆天凌少</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/KailiangW/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">逆天凌少</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/KailiangW/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/KailiangW/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/KailiangW/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/KailiangW/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/KailiangW/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/KailiangW/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wangkailiang.github.io/KailiangW/KailiangW/2017/10/02/Javascript闭包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王凯亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/KailiangW/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逆天凌少">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Javascript闭包</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T10:44:25+08:00">
+                2017-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/KailiangW/categories/Javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-引言"><a href="#1-引言" class="headerlink" title=" 1. 引言"></a> 1. 引言</h2><p>如果您了解JavaScript函数和模块的概念，学习闭包对您来说应该不是一个大问题。如果你刚刚接触JavaScript，没有了解过这两个概念，那也没问题。闭包属于高级JavaScript概念的类别，但相信我，如果你知道和了解内部函数的工作原理，理解闭包将是小菜一碟。</p>
+<h2 id="2-内部函数"><a href="#2-内部函数" class="headerlink" title="2.内部函数"></a>2.内部函数</h2><p>内部函数从根本上说是“函数内的函数”。 JavaScript支持嵌套函数，这意味着您可以在函数内创建一个或多个函数。内部函数可能再次包含内部函数，这种嵌套可以更深入。让我们看一个简单的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function innerOuterDemo()&#123;</span><br><span class="line">   console.log(&quot;The outer function&quot;);</span><br><span class="line"></span><br><span class="line">   function innerFunction()&#123;</span><br><span class="line">      console.log(&quot;The inner function&quot;);</span><br><span class="line">   &#125;</span><br><span class="line">   return innerFunction;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数innerOuterDemo包含一个名为innerFunction的内部函数，它将“内部函数”写入控制台。 对innerOuterDemo的调用将会将“外部函数”写入控制台并返回函数innerFunction。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var doSomething = innerOuterDemo(); // Logs &quot;The outer function&quot; and returns innerFunction</span><br><span class="line">doSomething(); // Logs &quot;The inner function&quot;</span><br></pre></td></tr></table></figure>
+<p>十分简单且直截了当。但是请记住，一旦函数完成执行并返回，它就不再起作用了。 这表示当innerOuterDemo被执行并返回innerFunction时，innerOuterDemo不再在作用范围内。</p>
+<p>现在我们已经介绍了函数嵌套和作用范围的基础知识，先让我们跳出闭包。 思考下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foodAndMore()&#123;</span><br><span class="line">   var myFood = &quot;Pizza and Pasta&quot;;</span><br><span class="line"> </span><br><span class="line">   function getMyFood()&#123;</span><br><span class="line">      return myFood;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   return getMyFood;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">var foodILove = foodAndMore();</span><br><span class="line">console.log(&quot;I love &quot; + foodILove());</span><br></pre></td></tr></table></figure>
+<p>和第一个例子非常类似，除了变量myFood。 变量myFood属于外部函数foodAndMore，但却在内部函数getMyFood内部作为return语句的部分来使用。 调用foodAndMore函数将返回的getMyFood函数分配给变量foodILove。 当您运行上述代码段时，控制台将会出现“我喜欢披萨和面食“。</p>
+<p>这里有什么特别之处呢？ 之前我说过，当函数完成执行时它就不再起作用了？ 但是如果是这样，在执行完函数foodAndMore并返回时，不应该包含变量myFood。但是您在控制台中看到“我喜欢披萨和面食”的输出，那肯定不是这样的，那到底是什么样的呢？这就要看下面的介绍了。</p>
+<h2 id="3-闭包"><a href="#3-闭包" class="headerlink" title="3.闭包"></a>3.闭包</h2><p><strong>闭包是内部函数访问外部函数变量的一个桥梁。</strong> 换句话说，<strong>闭包是一个可以访问外部函数的变量内部函数</strong>。 回过头来，让我们继续看上一个关于食物的例子。 正如我们已经观察到的，内部函数getMyFood可以访问外部函数的变量myFood，即使外部函数已经执行完毕。 <strong>所以函数getMyFood和变量myFood的组合就是一个闭包的例子</strong>。 我们可以随时通过引用变量（例如foodILove）来调用getMyFood函数并获取“Pizza and Pasta”的myFood变量的值。</p>
+<p>在JavaScript中，<strong>内部函数不仅可以访问外部函数的变量，还可以访问它们的参数</strong>。 下一个例子将证明这一点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function getMultiplier(multiplyBy)&#123;</span><br><span class="line">   function multiply(num)&#123;</span><br><span class="line">      return multiplyBy * num;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   return multiply;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">var multiplyByTwo = getMultiplier(2);</span><br><span class="line">var multiplyByTen = getMultiplier(10);</span><br><span class="line">var twoIntoFive = multiplyByTwo(5); // 10</span><br><span class="line">var tenIntoSix = multiplyByTen(6);  // 60</span><br></pre></td></tr></table></figure>
+<p>所以内函数multiply可以访问外函数的参数multiplyBy。 外部函数getMultiplier返回一个可以用作乘数函数的函数。 我们正在创建两个函数multiplyByTwo和multiplyByTen。 在调用这两个函数时，JavaScript运行时会记住执行环境（getMultiplier函数的参数），并执行数字之间的乘法。</p>
+<p>闭包在JavaScript和JavaScript的库和框架中广泛使用。 当您将内联函数写入事件处理程序或回调函数时，简单的例子就是事件处理和AJAX调用。 这些内联函数可以访问main（外部）函数的变量和参数。</p>
+<p>以下是jQuery中按钮单击事件处理函数（闭包）的示例。 即使外部函数未执行，该函数也可以访问计数变量及其状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(function()&#123;</span><br><span class="line">   var count = 1;</span><br><span class="line">   $(&quot;#counterBtn&quot;).Click(function()&#123; </span><br><span class="line">                      alert(&quot;Your click count is: &quot; + count++);</span><br><span class="line">                    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>闭包也可用于定义可以访问JavaScript模块模式中的私有函数和变量的公共函数。 下面给出一个简单的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var mathUtility = (function()&#123;</span><br><span class="line">   var count = 1;</span><br><span class="line"> </span><br><span class="line">   function increment(number)&#123;</span><br><span class="line">      return number + count;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   function decrement(number)&#123;</span><br><span class="line">      return number - count;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   return &#123;</span><br><span class="line">      nextOf: increment,</span><br><span class="line">      previousOf: decrement</span><br><span class="line">   &#125;;</span><br><span class="line">&#125;());</span><br><span class="line"> </span><br><span class="line">var numberAfterFive = mathUtility.nextOf(5);       // 6</span><br><span class="line">var numberBeforeTen = mathUtility.previousOf(10);  // 9</span><br></pre></td></tr></table></figure>
+<p>我们创建了一个包含两个私有函数increment和decrement的模块mathUtility。 两个私有函数都可以访问外部匿名函数中的count变量，从而形成闭包。 return返回的对象，实际上是一个名为mathUtility的模块，它包含两个公共函数nextOf和previousOf，可以用于查找任何给定数字的下一个或前一个数字。以上就是对闭包的讲述。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/KailiangW/tags/Javascript/" rel="tag"># Javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/KailiangW/2017/08/02/如何写出高效率的HTML/" rel="next" title="如何写出高效率的HTML">
+                <i class="fa fa-chevron-left"></i> 如何写出高效率的HTML
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/KailiangW/2017/10/02/Javascript中的this关键字/" rel="prev" title="Javascript中的this关键字">
+                Javascript中的this关键字 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">王凯亮</p>
+              <p class="site-description motion-element" itemprop="description">一个GIS专业的前端小白练级打怪的攻略</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/KailiangW/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/KailiangW/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/KailiangW/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-引言"><span class="nav-number">1.</span> <span class="nav-text"> 1. 引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-内部函数"><span class="nav-number">2.</span> <span class="nav-text">2.内部函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-闭包"><span class="nav-number">3.</span> <span class="nav-text">3.闭包</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王凯亮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/KailiangW/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/KailiangW/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/KailiangW/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/KailiangW/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/KailiangW/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

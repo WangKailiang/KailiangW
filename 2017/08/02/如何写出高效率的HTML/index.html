@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/KailiangW/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/KailiangW/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/KailiangW/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/KailiangW/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/KailiangW/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/KailiangW/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/KailiangW/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HTML," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="原文链接：如何写出高效率的HTML 我们该如何提升网页的性能?看到这个问题时，大多数开发者会想到图片优化、JavaScript优化、服务器配置升级、文件压缩甚至是CSS压缩这些方式。然而，网页的核心语言HTML却被忽视了。如今，HTML的负担越来越重，在全球排名前100的网站中，平均每个页面的HTML代码大小有40k左">
+<meta name="keywords" content="HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何写出高效率的HTML">
+<meta property="og:url" content="https://wangkailiang.github.io/KailiangW/2017/08/02/如何写出高效率的HTML/index.html">
+<meta property="og:site_name" content="逆天凌少">
+<meta property="og:description" content="原文链接：如何写出高效率的HTML 我们该如何提升网页的性能?看到这个问题时，大多数开发者会想到图片优化、JavaScript优化、服务器配置升级、文件压缩甚至是CSS压缩这些方式。然而，网页的核心语言HTML却被忽视了。如今，HTML的负担越来越重，在全球排名前100的网站中，平均每个页面的HTML代码大小有40k左右，其中Amazon和Yahoo平均每页的HTML代码有几千行，Youtube的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-05T12:26:26.116Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何写出高效率的HTML">
+<meta name="twitter:description" content="原文链接：如何写出高效率的HTML 我们该如何提升网页的性能?看到这个问题时，大多数开发者会想到图片优化、JavaScript优化、服务器配置升级、文件压缩甚至是CSS压缩这些方式。然而，网页的核心语言HTML却被忽视了。如今，HTML的负担越来越重，在全球排名前100的网站中，平均每个页面的HTML代码大小有40k左右，其中Amazon和Yahoo平均每页的HTML代码有几千行，Youtube的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/KailiangW/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wangkailiang.github.io/KailiangW/2017/08/02/如何写出高效率的HTML/"/>
+
+
+
+
+
+  <title>如何写出高效率的HTML | 逆天凌少</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/KailiangW/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">逆天凌少</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/KailiangW/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/KailiangW/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/KailiangW/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/KailiangW/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/KailiangW/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/KailiangW/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wangkailiang.github.io/KailiangW/KailiangW/2017/08/02/如何写出高效率的HTML/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王凯亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/KailiangW/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逆天凌少">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何写出高效率的HTML</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-02T10:44:25+08:00">
+                2017-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/KailiangW/categories/HTML/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文链接：<a href="https://segmentfault.com/a/1190000002680822" target="_blank" rel="noopener">如何写出高效率的HTML</a></p>
+<h1 id="我们该如何提升网页的性能"><a href="#我们该如何提升网页的性能" class="headerlink" title="我们该如何提升网页的性能?"></a><strong>我们该如何提升网页的性能?</strong></h1><p>看到这个问题时，大多数开发者会想到图片优化、JavaScript优化、服务器配置升级、文件压缩甚至是CSS压缩这些方式。然而，网页的核心语言HTML却被忽视了。<br>如今，HTML的负担越来越重，在全球排名前100的网站中，平均每个页面的HTML代码大小有40k左右，其中Amazon和Yahoo平均每页的HTML代码有几千行，Youtube的首页甚至有3500个HTML元素。虽然降低每页HTML的复杂性、减少元素数量并不能使页面的加载时间提升很多，但是良好的HTML编码习惯是提升网页加载速度的一个重要基础。之所以写这篇文章，就是为了告诉你如何写出干净整洁的HTML代码，能够让你的网页在许多设备上都能快速正常的加载运行。在这个过程中，你能够学会如何搭建易于维护和Debug的网站以及app。<br>写代码的方式可以有很多种，特别是HTML。本文只是根据我们的经验来做出相对最好的建议，并不代表每条建议在任何情况下都能达到效果，仅供参考。</p>
+<h1 id="内容简介"><a href="#内容简介" class="headerlink" title="内容简介"></a><strong>内容简介</strong></h1><ul>
+<li><strong>各司其职</strong>：样式由CSS来控制就够了，不要用HTML元素来强行获取想要的样式；</li>
+<li><strong>一丝不苟</strong>：开发过程中一定要加入代码校验工具，以确保代码没有任何语法以及逻辑上的错误；</li>
+<li><strong>干净整洁</strong>：使用自动排版工具来保持代码结构和格式的一致性；</li>
+<li><strong>熟练语言</strong>：应了解所有的元素用法，并在HTML多使用语义化的元素；</li>
+<li><strong>一视同仁</strong>：设计过程中一定要考虑到所有的情况，备用方案很重要，甚至要专门为特殊人群使用ARIA (Accessible Rich Internet Application)，以保证你的网站可以通过屏幕阅读器或者纯文本浏览器来展示；</li>
+<li><strong>全面测试</strong>：通过各种工具来测试你的网站在不同设备和不同尺寸屏幕上的表现。</li>
+</ul>
+<h2 id="Web三基友"><a href="#Web三基友" class="headerlink" title="Web三基友"></a><strong>Web三基友</strong></h2><p><code>HTML</code>的含义应该不多解释了，请自行百度百科。<br>首先要说的是，<code>HTML</code>和<code>CSS</code>两兄弟虽然彼此充满基情，但是也不能把关系搞得太复杂，样式由CSS来控制就够了，不要用<code>HTML</code>元素来强行获取想要的样式，比如不要仅仅为了使文字变大而使用<code>&lt;h1&gt;、&lt;h2&gt;、&lt;h3&gt;</code>这些标题标签，也不要仅仅为了缩进而使用<code>&lt;blockquote&gt;</code>标签。<br><code>Chrome, Firefox, Internet Explorer</code> 以及 <code>Opera</code> 都有各自的默认样式表，<code>HTML</code>元素默认的显示方式都是由这些默认样式表来决定的。比如，Chrome中<code>&lt;h1&gt;</code>默认的样式是<code>32px bold</code>，字体是<code>Times</code>.</p>
+<h2 id="基友三原则："><a href="#基友三原则：" class="headerlink" title="基友三原则："></a><strong>基友三原则：</strong></h2><ul>
+<li><code>HTML</code>用于建立结构，<code>CSS</code>用于渲染样式，<code>JavaScript</code>用于控制行为；</li>
+<li>首先完成<code>HTML</code>的设计，然后根据样式需求来设计<code>CSS</code>，最后在确实需要的情况下才设计<code>JavaScript</code>；</li>
+<li>将<code>CSS</code>和<code>JavaScript</code>文件进行归档，与<code>HTML</code>文件分开（这样不仅有助于页面缓存，而且可以使后期Debug更容易），这之后再把<code>CSS</code>和<code>JavaScript</code>链接到HTML中，可以根据需要来对<code>CSS</code>和<code>JavaScript</code>代码进行压缩加密。</li>
+</ul>
+<h1 id="结构的搭建"><a href="#结构的搭建" class="headerlink" title="结构的搭建"></a><strong>结构的搭建</strong></h1><p><code>HTML</code>在结构上搭建上需要注意这些：</p>
+<ol>
+<li><p>采用<code>HTML5</code>标准时开头应该加上<code>&lt;!DOCTYPE html&gt;</code>，像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt; </span><br><span class="line">        &lt;title&gt;Recipes: pesto&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;  </span><br><span class="line">        &lt;h1&gt;Pesto&lt;/h1&gt;  </span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>应在head标签中引入CSS文件，这样浏览器就可以在输出HTML之前获取CSS信息：</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;My pesto recipe&lt;/title&gt;</span><br><span class="line">    &lt;link rel=&quot;/css/global.css&quot;&gt;</span><br><span class="line">    &lt;link rel=&quot;css/local.css&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在<code>&lt;body&gt;</code>标签的末尾引入<code>JavaScript</code>文件，这样可以在页面显示之后再编译<code>JavaScript</code>文件，以加快页面读取速度，同时有助于<code>JavaScript</code>对页面中的元素进行操作，像这样：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;  </span><br><span class="line">    ...  </span><br><span class="line">    &lt;script src=&quot;/js/global.js&quot;&gt;  </span><br><span class="line">    &lt;script src=&quot;js/local.js&quot;&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>对元素的操作应添加在<code>JavaScript</code>代码中，而不要在<code>HTML</code>中添加，下面这个例子就是错误的，这样后期难以维护。<h2 id="比如这样写就不太好："><a href="#比如这样写就不太好：" class="headerlink" title="比如这样写就不太好："></a><strong>比如这样写就不太好</strong>：</h2><strong><em>index.html</em></strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">    ... </span><br><span class="line">    &lt;script src=&quot;js/local.js&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body onload=&quot;init()&quot;&gt;</span><br><span class="line">    ... </span><br><span class="line">    &lt;button onclick=&quot;handleFoo()&quot;&gt;Foo&lt;/button&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="这样写就好多了："><a href="#这样写就好多了：" class="headerlink" title="这样写就好多了："></a><strong>这样写就好多了</strong>：</h2><p><strong><em>index.html</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt; </span><br><span class="line">    ...</span><br><span class="line">    &lt;button id=&quot;foo&quot;&gt;Foo&lt;/button&gt;</span><br><span class="line">    ... </span><br><span class="line">    &lt;script src=&quot;js/local.js&quot;&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>js/local.js</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">init(); </span><br><span class="line">var fooButton =  document.querySelector(&apos;#foo&apos;);</span><br><span class="line">fooButton.onclick = handleFoo();</span><br></pre></td></tr></table></figure></p>
+<h2 id="代码校验"><a href="#代码校验" class="headerlink" title="代码校验"></a><strong>代码校验</strong></h2><p>虽然现在浏览器的容错力越来越高，但这不能成为代码粗制滥造的借口。不管什么时候，正确的<code>HTML</code>代码都更易于<code>Debug</code>、体积更小、运行更快、渲染时消耗资源更少，而错误的<code>HTML</code>代码只会使页面的最终设计难以实现想要的效果。特别是在使用模板来开发时，正确有效的<code>HTML</code>就更显得尤为重要，也许一个正常运行的模块会在其他环境中出现可怕的异常。</p>
+<p>如何才能提高<code>HTML</code>的正确性呢？可以有这些方式：</p>
+<ol>
+<li>在项目中加入校验过程：可以在代码编辑器中使用<code>HTMLHint、Sublime Linter</code>这类代码校验插件，也可以在build的时候使用<code>HTMLHint with Grunt</code>这类校验工具，还可以通过<code>W3C HTML validator</code>等网站来在线检测代码；</li>
+<li>尽量采用HTML5标准；</li>
+<li>确保正确的HTML层级：嵌套元素时确保元素首尾完整，在一个有大量内容的元素的结束标签后应添加注释，这样有助于后期debug，特别是在使用模板的时候；</li>
+<li>在所有不能自动结束的元素末尾添加结束标签；</li>
+<li><code>&lt;/li&gt;</code>结束标签不是必须的，所以有些人认为可以不写<code>&lt;/li&gt;</code>，这可以接受，但是<code>&lt;/ul&gt;</code>和<code>&lt;/ol&gt;</code>标签一定要加；</li>
+<li><code>&lt;video&gt;</code>和<code>&lt;audio&gt;</code>元素必须要有结束标签。</li>
+</ol>
+<h2 id="另一方面，要去掉冗余代码："><a href="#另一方面，要去掉冗余代码：" class="headerlink" title="另一方面，要去掉冗余代码："></a><strong>另一方面，要去掉冗余代码：</strong></h2><ol>
+<li>像<code>&lt;img&gt;</code>和<code>&lt;link&gt;</code>这一类元素可以不加结束标签；</li>
+<li>布尔型的属性可以不赋值，只要该属性出现，值就为<code>true</code>；</li>
+<li>CSS和 JavaScript链接不需要type属性，他们就是他们。<br><h4>良好的代码排版</h4><p>保持一致的代码排版可以使HTML代码更易于理解、优化和debug，要做到良好的代码排版应注意以下这几点：</p><br><ol><br><li>在项目中保持统一的HTML代码风格；</li><br><li>使用代码编辑器来帮助你自动排版，比如在Sublime Text中可以使用自带的Reindent，也可以找一些自动排版插件来帮助你。同样也可以使用一些在线工具比如<a rel="noopener" href="http://html.fwpolice.com/css/" target="_blank">CSS Beautifier</a>和<a rel="noopener" href="http://javascriptbeautifier.com/" target="_blank">JS Beautifier</a>； </li><br><li>在HTML中用缩进来分层更易于阅读，如果代码编辑器没有自动缩进功能的话可以自行修改相应的设置。当你发现你的HTML层级过深的时候，那就表示你需要重构一下你的HTML了；</li><br><li>缩进可以通过空格或者Tab来实现，但一定不要两者同时使用；</li><br><li><br><p>用更直接易读的方式写HTML代码，比如这句话，就可以很明显的看出这是个标题：</p><br><pre><code>&lt;h2 &gt;&lt;a href=”/contact”&gt;Contact &lt;/a &gt;&lt;h2 &gt;</code></pre><br><p>这样写的话就更像是一个链接：</p><br><pre><code>&lt;a href=”/contact”&gt;&lt;h2 &gt;Contact &lt;/h2 &gt;&lt;/a &gt;</code> </pre><br></li><br><li>元素要按常规放置，比如footer元素最好是放在HTML页面的底部，虽然理论上把它放在任何地方都可以正常运行；</li><br><li>统一所有引号的使用规则，不要这里用双引号，那里又单引号；</li><br><li><br><p>使用小写字母来写标签和属性，大写字母很不易读，像这样：</p><br><pre><code>&lt;A HREF=”/“&gt;Home &lt;/A &gt;</code></pre><br><p>混合式的写法简直就是反人类：</p><br><pre><code>&lt;H2 &gt;Pesto &lt;/h2 &gt;</code> </pre><br></li><br></ol><br><h4>语义化设计</h4><br><p>语义化的意思是从名称一眼就能看出其内容和作用是什么，HTML的标签就是通过使用浅显易懂的元素名和属性名来实现语义化的。HTML5又引进了一些新的语义化元素，比如<code>&lt;header &gt;</code> <code>&lt;footer &gt;</code>和<code>&lt;nav &gt;</code>。<br>为了是你的代码更易理解，一定要针对内容使用相应的语义化元素：<br></p><br><ol><br><li>标题使用<code>&lt;h1 &gt;</code> (<code>&lt;h2 &gt;</code> , <code>&lt;h3 &gt;</code> …)，列表使用<code>&lt;ul &gt;</code> 或者<code>&lt;ol &gt;</code>； </li><br><li><code>&lt;article &gt;</code> 内容中的标题应该从<code>&lt;h1 &gt;</code>开始；</li><br><li>在适当的地方使用HTML5的新元素，比如<code>&lt;header &gt;</code>, <code>&lt;footer &gt;</code> , <code>&lt;nav &gt;</code>和<code>&lt;aside &gt;</code>；</li><br><li>正文中的文本内容要用<code>&lt;p &gt;</code>标签，内容的结构化可以使用HTML5的新元素（或者<code>&lt;div &gt;</code>），不要颠倒；<br></li><br><li>修改文字样式时，<code>&lt;em &gt;</code>和<code>&lt;strong &gt;</code> 要比<code>&lt;i &gt;</code>和<code>&lt;b &gt;</code>更好些，因为前者语义更加明显；</li><br><li><code>&lt;form &gt;</code> 中要包含<code>&lt;label &gt;</code>元素，<code>input</code> 元素要有<code>type</code> 、<code>placeholder</code> 以及其他必要的属性，即使值为空都可以；</li><br><li> <p>不要把文字和元素混合在一起，这样容易导致布局出错，比如这样：</p><br><pre><code>&lt;div &gt;Name: &lt;input type=”text”&gt;&lt;/div &gt;</code></pre><br><p>这样写会更好些：</p><br><pre><code>&lt;div &gt;&lt;label &gt;Name:&lt;/label &gt;&lt;inputtype=”text”&gt;&lt;/div &gt;</code> </pre><br></li><br></ol><br><h2>布局</h2><br><p>首先再次强调一遍：</p><br><blockquote><br><p>样式由CSS来控制就够了，不要用HTML元素来强行获取想要的样式。</p></blockquote><br><p>布局需要注意的问题有这些：</p><br><ol><br><li><br><code>&lt;p &gt;</code><br>                                元素用来放文字，而不是用来布局。在浏览器自身的样式表中默认<code>&lt;p &gt;</code><br>                                有<code>margin</code><br>                                和其他样式；<br>                            </li><br>                            <li><br>                                想实现换行可以使用<code>&lt;block &gt;</code><br>                                元素或者CSS的<code>display</code><br>                                属性，尽量避免使用<code>&lt;br &gt;</code><br>                                来换行。文字内容中的换行可以用<code>&lt;br &gt;</code><br>                                ，但通常也很少这样用，有时在诗文中会把<code>&lt;br &gt;</code><br>                                作为标点来使用；<br>                            </li><br>                            <li><br>                                避免使用<code>&lt;hr &gt;</code><br>                                ，因为这个元素对语义和结构都没有太大帮助，反而<code>&lt;hr &gt;</code><br>                                极差的灵活性对布局和显示都有很大的影响；<br>                            </li><br>                            <li><br>                                不要滥用<code>&lt;div &gt;</code><br>                                ，W3C对<code>&lt;div &gt;</code><br>                                的描述是这样的：当没有其他元素可用时才能使用<code>&lt;div &gt;</code><br>                                。如果想让<code>&lt;link &gt;</code><br>                                和<code>&lt;img &gt;</code><br>                                这类元素能够在结尾换行，可以在样式中添加<code>display: block</code><br>                                ，这样要比把它们放进<code>&lt;div &gt;</code><br>                                或者使用<code>&lt;br &gt;</code><br>                                来换行要好得多;<br>                            </li><br>                            <li><br>                                必须知道哪些是块级元素，这样就可以避免把块级元素放到<code>&lt;div &gt;</code><br>                                里面，比如列表就不需要放到div里面；<br>                            </li><br>                            <li><br>                                <code>&lt;table &gt;</code><br>                                是用来放表格数据的，不是用来布局的；<br>                            </li><br>                            <li>Flex box现在越来越流行，学一学没有坏处；</li><br>                            <li><br>                                盒模型一定要掌握，必须知道什么时候该用<code>padding</code><br>                                ，什么时候该用<code>margin</code><br>                                ；<br>                            </li><br>                            <li><br>                                使用<code>margin</code><br>                                的规则：通常情况下，<code>margin</code><br>                                都是添加在元素的<code>bottom</code><br>                                和<code>right</code><br>                                ，有时也可以是<code>top</code><br>                                或者<code>left</code><br>                                。无论如何，尽量避免同时在<code>bottom</code><br>                                和<code>top</code><br>                                ，或者<code>right</code><br>                                和<code>left</code><br>                                添加<code>margin</code><br>                                。可以用<code>last-of-type</code><br>                                选择器来去掉最后一个子元素的<code>margin</code><br>                                。<br>                            </li><br>                        </ol><br><h2>CSS方面</h2><br><p>这篇文章虽然是讲HTML的，但也有些CSS的注意事项想说一说：</p><br><ol><br><li>不要将多句CSS写在同一行；</li><br><li> 不要重复使用同一个<code>id</code>；</li><br><li><p> 有时候给父元素添加<code>class</code>要比给子元素添加更简洁易维护（class的命名方式可以采用BEM规则），像这样：<br></p><pre><code>&lt;!– 这样看着好累&gt;o &lt;–&gt;&lt;ul &gt;&lt;li class=”ingredient”&gt;Basil &lt;/li &gt;&lt;li class=”ingredient”&gt;Pine nuts &lt;/li &gt;&lt;li class=”ingredient”&gt;Garlic &lt;/li &gt;&lt;/ul &gt;&lt;!– 看起来舒服多了^v^ –&gt;&lt;ul class=”ingredients”&gt;&lt;li &gt;Basil &lt;/li &gt;&lt;li &gt;Pine nuts &lt;/li &gt;&lt;li &gt;Garlic &lt;/li &gt;&lt;/ul &gt;</code></pre></li></ol><br><h2>易访问性</h2><br><p>要多为用户考虑，不同的设备条件、使用环境以及输入法等都会给你的HTML带来不同的体验：</p><ol><br><li>尽可能的使用语义化元素；</li><br><li>要准备好备用内容：比如给<code>&lt;track &gt;</code>元素添加说明和副标题，给<code>&lt;video &gt;</code> 和<code>&lt;audio &gt;</code>元素添加备用的文字或者图片，视频内容配上相应的截图或海报，每张图片都要加<code>alt</code>属性（如果图片只是用来装饰页面的话可以给<code>alt</code> 赋空值）;<br></li><br><li>链接要加<code>title</code> 属性，<code>title</code>必须要有意义，不要只是链接的复述；</li><li>在<code>&lt;input &gt;</code>元素中要加入<code>type</code>和<code>placeholder</code>；</li><br><li>设计时要尽量加入<a rel="noopener" href="http://tid.tenpay.com/?p=5150" target="_blank">ARIA (Accessible Rich Internet Application)</a>。<br></li><br></ol><br><h2>其他建议</h2><br><ol><br><li>符号的转义，比如<code>&lt;</code>  和<code>&amp;</code> 符号，像这样：<code>&lt;title &gt;HTML &amp;amp; JavaScript &lt;/title &gt;</code>；</li><br><li>有些符号不需要转义，比如破折号（如：4-5 weeks）还有货币符号（如：<code>¢</code> ,<code>€</code>）；</li><br><li>在代码中作用不明显的地方适当的添加注释（注释在重构时的作用性举足轻重，优秀的HTML代码，无论多么复杂都可以很好的阅读和理解）；</li><br><li><p>有时全大写的标题会起到吸引注意力的作用，但没必要在HTML中真的输入大写的文字，可以在CSS中通过修改<code>text-transform</code>和<code>font-variant</code>来完成。这样做还有个好处，就是当用户复制这段文字时，他们可能不想要全大写的，像下面的<code>&lt;h4 &gt;</code>，当用户复制文字内容时，得到的是大小写混合的文字：<br> <strong><em>HTML</em> </strong><br></p><br><pre><code>html</code><code>&lt;h4 &gt;W3C Web Accessibility Initiative ARIA guidance &lt;/h4 &gt;</code></pre><p> <strong> <em>CSS</em></strong> </p> <pre> <code>css</code><code>h4 {font-variant: small-caps;}</code></pre> </li><br></ol><br><h2>测试</h2><br><p> 重中之重，就是一定要做测试！<br> 在工作流程、调试工具和部署过程中都可以加入HTML测试。一定要测试你的页面在不同条件的设备，不同大小的屏幕以及不同网速的环境下的读取情况。还要使用纯文字浏览器（如： <a rel="noopener" href="http://lynx.browser.org/" target="_blank">Lynx</a><br>                            ）或者屏幕阅读器（如：<a rel="noopener" href="http://www.baidu.com/baidu?wd=ChromeVox&amp;tn=monline_4_dg" target="_blank">ChromeVox</a><br>                            ）来测试页面在特殊环境下的交互性。可以使用Chrome Dev Tools device mode这种仿真器来监视页面的变化。工作流程中可以加入<a rel="noopener" href="http://www.baidu.com/baidu?wd=Page+Speed&amp;tn=monline_4_dg" target="_blank">Page Speed</a><br>                            , <a rel="noopener" href="http://www.webpagetest.org/" target="_blank">Web Page Test</a><br>                            等工具来做自动化测试。<br>                        </p>
+
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/KailiangW/tags/HTML/" rel="tag"># HTML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/KailiangW/2017/10/02/Javascript闭包/" rel="prev" title="Javascript闭包">
+                Javascript闭包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">王凯亮</p>
+              <p class="site-description motion-element" itemprop="description">一个GIS专业的前端小白练级打怪的攻略</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/KailiangW/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/KailiangW/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/KailiangW/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#我们该如何提升网页的性能"><span class="nav-number">1.</span> <span class="nav-text">我们该如何提升网页的性能?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内容简介"><span class="nav-number">2.</span> <span class="nav-text">内容简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Web三基友"><span class="nav-number">2.1.</span> <span class="nav-text">Web三基友</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基友三原则："><span class="nav-number">2.2.</span> <span class="nav-text">基友三原则：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结构的搭建"><span class="nav-number">3.</span> <span class="nav-text">结构的搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#比如这样写就不太好："><span class="nav-number">3.1.</span> <span class="nav-text">比如这样写就不太好：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这样写就好多了："><span class="nav-number">3.2.</span> <span class="nav-text">这样写就好多了：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码校验"><span class="nav-number">3.3.</span> <span class="nav-text">代码校验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#另一方面，要去掉冗余代码："><span class="nav-number">3.4.</span> <span class="nav-text">另一方面，要去掉冗余代码：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.4.0.1.</span> <span class="nav-text">良好的代码排版</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">3.4.0.2.</span> <span class="nav-text">语义化设计</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.5.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.6.</span> <span class="nav-text">CSS方面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.7.</span> <span class="nav-text">易访问性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.8.</span> <span class="nav-text">其他建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.9.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王凯亮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/KailiangW/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/KailiangW/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/KailiangW/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/KailiangW/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/KailiangW/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

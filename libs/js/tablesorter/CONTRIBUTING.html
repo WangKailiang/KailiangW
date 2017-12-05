@@ -1,0 +1,54 @@
+<h1 id="Contributing-to-tablesorter-FORK"><a href="#Contributing-to-tablesorter-FORK" class="headerlink" title="Contributing to tablesorter (FORK)"></a>Contributing to tablesorter (FORK)</h1><ol>
+<li><a href="#getting-involved">Getting Involved</a></li>
+<li><a href="#how-to-report-issues">How To Report issues</a></li>
+<li><a href="#contributing-code">Contributing Code</a></li>
+</ol>
+<h2 id="Getting-Involved"><a href="#Getting-Involved" class="headerlink" title="Getting Involved"></a>Getting Involved</h2><p>There are a number of ways to get involved with the development of this fork of Tablesorter. Even if you’ve never contributed to an Open Source project before, we’re always looking for help identifying issues.</p>
+<h2 id="How-to-Report-issues-or-make-requests"><a href="#How-to-Report-issues-or-make-requests" class="headerlink" title="How to Report issues, or make requests."></a>How to Report issues, or make requests.</h2><ul>
+<li>First off make sure it’s a new issue. Search the <a href="https://github.com/Mottie/tablesorter/wiki/FAQ">FAQ</a>, <a href="https://mottie.github.io/tablesorter/docs/">documents</a> and the <a href="https://github.com/Mottie/tablesorter/issues">issues</a>.</li>
+<li>If it’s an existing issue or feature request, and you want to show that it is also a concern for you. Add a comment!</li>
+<li>If it turns out to not be an issue, but a question instead:<ul>
+<li>Please don’t open a new issue.</li>
+<li>Jump on out freenode.net IRC channel: <code>#tablesorter</code>.</li>
+<li>Ask the question on <a href="https://stackoverflow.com/questions/tagged/tablesorter">Stackoverflow</a> (tablesorter or jQuery tag).</li>
+</ul>
+</li>
+<li>If you do open a new issue:<ul>
+<li>If the issue only occurs in a particular browser or version of jQuery, that would be awesome to know!</li>
+<li>Please include any <em>relevant</em> code (posting the entire page usually isn’t that helpful).</li>
+<li>Add if there are any errors showing in the console (press F12 in the browser and go to the console tab).</li>
+<li>Include screenshots, animated gifs, videos (check out <a href="https://www.screenr.com/">screenr</a>) or funny cat pictures. You never know what might help!</li>
+</ul>
+</li>
+</ul>
+<h2 id="Contributing-Code"><a href="#Contributing-Code" class="headerlink" title="Contributing Code"></a>Contributing Code</h2><ul>
+<li>Installation:<ul>
+<li>Please see the <a href="https://github.com/Mottie/tablesorter/wiki/Customize">Customize</a> wiki page for specifics on how to install the necessary modules &amp; create a custom build.</li>
+<li>If you aren’t comfortable using grunt or making a build file, you can go ahead and just share the changes.</li>
+</ul>
+</li>
+<li>Style Guide:<ul>
+<li>We’re not too strict, just try to follow the style that is already being used in the code; <a href="https://github.com/Mottie/tablesorter/blob/master/.jscsrc">click here here for the .jscsrc file  used in this project</a>.</li>
+<li>When naming variables:<ul>
+<li>Use names that describe it’s contents. I’m guilty of naming things <code>t</code> and <code>i</code>, but I’m slowly trying to rename them to make reading code and finding the variable in the code easier.</li>
+<li>Name jQuery objects with a leading <code>$</code>, e.g. <code>var $table = $(&#39;table&#39;);</code></li>
+</ul>
+</li>
+<li>We like semicolons! Jshint will yell at you if you don’t use them.</li>
+<li>We like single quotes! It’s OCD man!</li>
+<li>We like tabs!</li>
+<li>We like pizza!</li>
+</ul>
+</li>
+<li>Pull request:<ul>
+<li>Before opening a pull request, please make sure that your code is on a <em>fork</em> of the master. This is really for your own convenience: it’s easy for us to accept your pull request from your master branch, but it’s problematic for your fork when you want to pull the changes back and your master branch has diverged from upstream’s master branch.</li>
+<li>Add unit tests - tablesorter is still missing a lot of unit tests, so adding tests for your contribution would be a tremendous help!</li>
+<li>Also, make sure to test your changes!<ul>
+<li>Use <code>grunt test</code> (<a href="https://github.com/Mottie/tablesorter/wiki/Customize#testing-a-build">ref</a>)</li>
+<li>If you aren’t comfortable with using grunt, copy, then paste your code into <a href="http://jshint.com/">jsHint</a> to help find any problems with the changes.</li>
+</ul>
+</li>
+<li>There is no need to open an issue, then create a pull request. Just create the pull request and add any comments about your changes there.</li>
+</ul>
+</li>
+</ul>

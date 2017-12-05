@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/KailiangW/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/KailiangW/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/KailiangW/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/KailiangW/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/KailiangW/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/KailiangW/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/KailiangW/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Asp.Net," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="网站中无论是用户登录还是用户信息修改等操作都离不开数据库。本文将通过一个简单的例子来介绍Asp.Net中如何通过HTTP处理程序来对MySQL数据库进行操作。 准备工作 首先你的电脑中要安装MySQL数据库服务器 安装MySQL Connector Net 当然还有VS进入正题首先，新建一个Asp.Net空网站项目，然">
+<meta name="keywords" content="Asp.Net">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Asp.Net中使用HTTP处理程序连接MySQL数据库">
+<meta property="og:url" content="https://wangkailiang.github.io/KailiangW/2017/10/02/Asp.Net中使用HTTP处理程序连接MySQL数据库/index.html">
+<meta property="og:site_name" content="逆天凌少">
+<meta property="og:description" content="网站中无论是用户登录还是用户信息修改等操作都离不开数据库。本文将通过一个简单的例子来介绍Asp.Net中如何通过HTTP处理程序来对MySQL数据库进行操作。 准备工作 首先你的电脑中要安装MySQL数据库服务器 安装MySQL Connector Net 当然还有VS进入正题首先，新建一个Asp.Net空网站项目，然后添加MySQL.Data引用。在web.config的&amp;lt;configur">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-05T01:21:04.541Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Asp.Net中使用HTTP处理程序连接MySQL数据库">
+<meta name="twitter:description" content="网站中无论是用户登录还是用户信息修改等操作都离不开数据库。本文将通过一个简单的例子来介绍Asp.Net中如何通过HTTP处理程序来对MySQL数据库进行操作。 准备工作 首先你的电脑中要安装MySQL数据库服务器 安装MySQL Connector Net 当然还有VS进入正题首先，新建一个Asp.Net空网站项目，然后添加MySQL.Data引用。在web.config的&amp;lt;configur">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/KailiangW/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wangkailiang.github.io/KailiangW/2017/10/02/Asp.Net中使用HTTP处理程序连接MySQL数据库/"/>
+
+
+
+
+
+  <title>Asp.Net中使用HTTP处理程序连接MySQL数据库 | 逆天凌少</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/KailiangW/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">逆天凌少</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/KailiangW/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/KailiangW/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/KailiangW/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/KailiangW/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/KailiangW/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/KailiangW/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wangkailiang.github.io/KailiangW/KailiangW/2017/10/02/Asp.Net中使用HTTP处理程序连接MySQL数据库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王凯亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/KailiangW/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逆天凌少">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Asp.Net中使用HTTP处理程序连接MySQL数据库</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T10:44:25+08:00">
+                2017-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/KailiangW/categories/Asp-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Asp.Net</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>网站中无论是用户登录还是用户信息修改等操作都离不开数据库。</strong><br>本文将通过一个简单的例子来介绍Asp.Net中如何通过HTTP处理程序来对MySQL数据库进行操作。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a><strong>准备工作</strong></h2><ul>
+<li>首先你的电脑中要安装MySQL数据库服务器</li>
+<li>安装MySQL Connector Net</li>
+<li>当然还有VS<h2 id="进入正题"><a href="#进入正题" class="headerlink" title="进入正题"></a><strong>进入正题</strong></h2>首先，新建一个Asp.Net空网站项目，然后添加MySQL.Data引用。<br>在web.config的<code>&lt;configuration&gt;&lt;/configuration&gt;</code>下添加如下标签：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;connectionStrings&gt;</span><br><span class="line">    &lt;add name=&quot;MySQLConnString&quot; connectionString=&quot;Server=localhost;Port=3306;Database=floorTitles;Uid=root;Pwd=147258369;pooling=false;&quot; providerName=&quot;MySql.Data.MySqlClient&quot; /&gt;</span><br><span class="line">  &lt;/connectionStrings&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>其中，<strong>Server</strong>表示MySQL服务器位置；<strong>Port</strong>表示端口；<strong>Database</strong>表示数据库；<strong>Uid</strong>表示用户名；<strong>Pws</strong>表示密码。<br>然后名为Floor的类，并添加以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Web;</span><br><span class="line">using System.Data;</span><br><span class="line">using System.Configuration;</span><br><span class="line">using MySql.Data.MySqlClient;</span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// Summary description for Products</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// </span><br><span class="line">public class DbProducts</span><br><span class="line">&#123;</span><br><span class="line">    MySqlConnection _con = new MySqlConnection(ConfigurationManager.ConnectionStrings[&quot;MySQLConnString&quot;].ConnectionString);</span><br><span class="line"></span><br><span class="line">    public List&lt;Product&gt; GetProductDetails(string select)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            List&lt;Product&gt; _lstProducts = new List&lt;Product&gt;();</span><br><span class="line">            Product _Product = null;</span><br><span class="line"></span><br><span class="line">            if (_con.State != System.Data.ConnectionState.Open)</span><br><span class="line">                _con.Open();</span><br><span class="line"></span><br><span class="line">            MySqlCommand _cmd = _con.CreateCommand();</span><br><span class="line">            _cmd.CommandText = &quot;SELECT ID, indexNum, Full300, Part300, Full400, Part400, Full600, Part600, Full800,&quot;</span><br><span class="line">                +&quot; Part800, Area300, Area400, Area600, Area800,&quot;</span><br><span class="line">                + &quot;(Full300 + Full400 + Full600 + Full800) / (Full300 + Part300 + Full400 + Part400 +Full600 + Part600 +Full800 + Part800) AS Eva,&quot;</span><br><span class="line">                + &quot;ImageString&quot;</span><br><span class="line">                + &quot; FROM floor&quot;</span><br><span class="line">                + &quot; WHERE DataID = &quot; + select</span><br><span class="line">                +&quot; ORDER BY Eva DESC&quot;;</span><br><span class="line"></span><br><span class="line">            MySqlDataReader _Reader = _cmd.ExecuteReader();</span><br><span class="line"></span><br><span class="line">            while (_Reader.Read())</span><br><span class="line">            &#123;</span><br><span class="line"></span><br><span class="line">                _Product = new Product();</span><br><span class="line"></span><br><span class="line">                _Product.ID = Convert.ToInt32(_Reader[&quot;ID&quot;].ToString());</span><br><span class="line">                _Product.Index = Convert.ToInt32(_Reader[&quot;IndexNum&quot;].ToString());</span><br><span class="line">                _Product.F300 = Convert.ToInt32(_Reader[&quot;Full300&quot;].ToString());</span><br><span class="line">                _Product.P300 = Convert.ToInt32(_Reader[&quot;Part300&quot;].ToString());</span><br><span class="line">                _Product.F400 = Convert.ToInt32(_Reader[&quot;Full400&quot;].ToString());</span><br><span class="line">                _Product.P400 = Convert.ToInt32(_Reader[&quot;Part400&quot;].ToString());</span><br><span class="line">                _Product.F600 = Convert.ToInt32(_Reader[&quot;Full600&quot;].ToString());</span><br><span class="line">                _Product.P600 = Convert.ToInt32(_Reader[&quot;Part600&quot;].ToString());</span><br><span class="line">                _Product.F800 = Convert.ToInt32(_Reader[&quot;Full800&quot;].ToString());</span><br><span class="line">                _Product.P800 = Convert.ToInt32(_Reader[&quot;Part800&quot;].ToString());</span><br><span class="line"></span><br><span class="line">                _Product.A300 = Convert.ToDouble(_Reader[&quot;Area300&quot;].ToString());</span><br><span class="line">                _Product.A400 = Convert.ToDouble(_Reader[&quot;Area400&quot;].ToString());</span><br><span class="line">                _Product.A600 = Convert.ToDouble(_Reader[&quot;Area600&quot;].ToString());</span><br><span class="line">                _Product.A800 = Convert.ToDouble(_Reader[&quot;Area800&quot;].ToString());</span><br><span class="line"></span><br><span class="line">                _Product.Eva = Convert.ToDouble(_Reader[&quot;Eva&quot;].ToString());</span><br><span class="line">                _Product.imgStr =Convert.ToString(_Reader[&quot;ImageString&quot;].ToString());</span><br><span class="line"></span><br><span class="line">                _lstProducts.Add(_Product);</span><br><span class="line">            &#125;</span><br><span class="line">            return _lstProducts;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            throw ex;</span><br><span class="line">        &#125;</span><br><span class="line">        finally</span><br><span class="line">        &#123;</span><br><span class="line">            if (_con.State != ConnectionState.Closed)</span><br><span class="line">                _con.Close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public string InsertProduct(Product _P)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            if (_con.State != System.Data.ConnectionState.Open)</span><br><span class="line">                _con.Open();</span><br><span class="line">            MySqlCommand _cmd = _con.CreateCommand();</span><br><span class="line"></span><br><span class="line">            _cmd.CommandText = &quot;INSERT INTO floor(&quot;</span><br><span class="line">                + &quot;DataID, ImageString, Date, Full300, Part300, Full400, Part400,&quot;</span><br><span class="line">                + &quot;Full600, Part600, Full800, Part800, Area300, Area400, Area600,&quot;</span><br><span class="line">                + &quot;Area800, indexNum) VALUES&quot;</span><br><span class="line">                + &quot;(@DataID, @ImageString, @Date, @Full300, @Part300, @Full400, @Part400, &quot;</span><br><span class="line">                + &quot;@Full600, @Part600, @Full800, @Part800, @Area300, @Area400, @Area600, @Area800, @indexNum)&quot;;</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@DataID&quot;, &quot;123456&quot;));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@ImageString&quot;, &quot;C:\\CNSI\\&quot;));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Date&quot;, &quot;2017/03/31&quot;));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Full300&quot;, _P.F300));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Part300&quot;, _P.P300));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Full400&quot;, _P.F400));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Part400&quot;, _P.P300));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Full600&quot;, _P.F600));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Part600&quot;, _P.P600));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Full800&quot;, _P.F800));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Part800&quot;, _P.P300));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Area300&quot;, _P.A300));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Area400&quot;, _P.A400));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Area600&quot;, _P.A600));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Area800&quot;, _P.A800));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@IndexNum&quot;, _P.Index));</span><br><span class="line">            if (_cmd.ExecuteNonQuery() &gt; 0)</span><br><span class="line">                return &quot;Record Sucessfully Saved&quot;;</span><br><span class="line">            else</span><br><span class="line">                return &quot;Record not Afftected to DataBase&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            throw ex;</span><br><span class="line">        &#125;</span><br><span class="line">        finally</span><br><span class="line">        &#123;</span><br><span class="line">            if (_con.State != System.Data.ConnectionState.Closed)</span><br><span class="line">                _con.Close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public string UpdateProduct(Product _P)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            if (_con.State != System.Data.ConnectionState.Open)</span><br><span class="line">                _con.Open();</span><br><span class="line">            MySqlCommand _cmd = _con.CreateCommand();</span><br><span class="line"></span><br><span class="line">            _cmd.CommandText = &quot;UPDATE floor SET &quot;</span><br><span class="line">                + &quot;DataID=@DataID, ImageString=@ImageString, Date=@Date, Full300=@Full300, Part300=@Part300, Full400=@Full400, &quot;</span><br><span class="line">                + &quot;Part400=@Part400, Full600=@Full600, Part600=@Part600, Full800=@Full800, Part800=@Part800, &quot;</span><br><span class="line">                + &quot;Area300=@Area300, Area400=@Area400, Area600=@Area600, Area800=@Area800, indexNum=@indexNum&quot;</span><br><span class="line">                +&quot; Where ID=@ID&quot;;</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@DataID&quot;, &quot;123456&quot;));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@ImageString&quot;, &quot;C:\\CNSI\\&quot;));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Date&quot;, &quot;2017-12-12&quot;));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Full300&quot;, _P.F300));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Part300&quot;, _P.P300));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Full400&quot;, _P.F400));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Part400&quot;, _P.P300));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Full600&quot;, _P.F600));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Part600&quot;, _P.P600));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Full800&quot;, _P.F800));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Part800&quot;, _P.P300));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Area300&quot;, _P.A300));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Area400&quot;, _P.A400));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Area600&quot;, _P.A600));</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@Area800&quot;, _P.A800));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@IndexNum&quot;, _P.Index));</span><br><span class="line"></span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@ID&quot;, _P.ID));</span><br><span class="line"></span><br><span class="line">            if (_cmd.ExecuteNonQuery() &gt; 0)</span><br><span class="line">                return &quot;Record Sucessfully Updated&quot;;</span><br><span class="line">            else</span><br><span class="line">                return &quot;Record not Afftected to DataBase&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            throw ex;</span><br><span class="line">        &#125;</span><br><span class="line">        finally</span><br><span class="line">        &#123;</span><br><span class="line">            if (_con.State != System.Data.ConnectionState.Closed)</span><br><span class="line">                _con.Close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public string DeleteProduct(int ID)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            if (_con.State != System.Data.ConnectionState.Open)</span><br><span class="line">                _con.Open();</span><br><span class="line">            MySqlCommand _cmd = _con.CreateCommand();</span><br><span class="line">            _cmd.CommandText = &quot;Delete From floor Where ID=@ID&quot;;</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@ID&quot;, ID));</span><br><span class="line">            if (_cmd.ExecuteNonQuery() &gt; 0)</span><br><span class="line">                return &quot;Records Sucessfully Delete&quot;;</span><br><span class="line">            else</span><br><span class="line">                return &quot;Records not Afftected to DataBase&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            throw ex;</span><br><span class="line">        &#125;</span><br><span class="line">        finally</span><br><span class="line">        &#123;</span><br><span class="line">            if (_con.State != System.Data.ConnectionState.Closed)</span><br><span class="line">                _con.Close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Product GetProductById(int ID)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            if (_con.State != System.Data.ConnectionState.Open)</span><br><span class="line">                _con.Open();</span><br><span class="line">            MySqlCommand _cmd = _con.CreateCommand();</span><br><span class="line">            _cmd.CommandText = &quot;SELECT ID, indexNum, Full300, Part300, Full400, Part400, Full600, Part600, Full800,&quot;</span><br><span class="line">                + &quot; Part800, Area300, Area400, Area600, Area800,&quot;</span><br><span class="line">                + &quot;(Full300 + Full400 + Full600 + Full800) / (Full300 + Part300 + Full400 + Part400 +Full600 + Part600 +Full800 + Part800) AS Eva,&quot;</span><br><span class="line">                + &quot;ImageString&quot;</span><br><span class="line">                + &quot; FROM floor&quot;</span><br><span class="line">                + &quot; WHERE ID = @ID&quot;;</span><br><span class="line">            _cmd.Parameters.Add(new MySqlParameter(&quot;@ID&quot;, ID));</span><br><span class="line">            MySqlDataReader _Reader = _cmd.ExecuteReader();</span><br><span class="line">            Product _Product = null;</span><br><span class="line">            while (_Reader.Read())</span><br><span class="line">            &#123;</span><br><span class="line">                _Product = new Product();</span><br><span class="line"></span><br><span class="line">                _Product.ID = Convert.ToInt32(_Reader[&quot;ID&quot;].ToString());</span><br><span class="line">                _Product.Index = Convert.ToInt32(_Reader[&quot;IndexNum&quot;].ToString());</span><br><span class="line">                _Product.F300 = Convert.ToInt32(_Reader[&quot;Full300&quot;].ToString());</span><br><span class="line">                _Product.P300 = Convert.ToInt32(_Reader[&quot;Part300&quot;].ToString());</span><br><span class="line">                _Product.F400 = Convert.ToInt32(_Reader[&quot;Full400&quot;].ToString());</span><br><span class="line">                _Product.P400 = Convert.ToInt32(_Reader[&quot;Part400&quot;].ToString());</span><br><span class="line">                _Product.F600 = Convert.ToInt32(_Reader[&quot;Full600&quot;].ToString());</span><br><span class="line">                _Product.P600 = Convert.ToInt32(_Reader[&quot;Part600&quot;].ToString());</span><br><span class="line">                _Product.F800 = Convert.ToInt32(_Reader[&quot;Full800&quot;].ToString());</span><br><span class="line">                _Product.P800 = Convert.ToInt32(_Reader[&quot;Part800&quot;].ToString());</span><br><span class="line">                _Product.A300 = Convert.ToDouble(_Reader[&quot;Area300&quot;].ToString());</span><br><span class="line">                _Product.A400 = Convert.ToDouble(_Reader[&quot;Area400&quot;].ToString());</span><br><span class="line">                _Product.A600 = Convert.ToDouble(_Reader[&quot;Area600&quot;].ToString());</span><br><span class="line">                _Product.A800 = Convert.ToDouble(_Reader[&quot;Area800&quot;].ToString());</span><br><span class="line">                _Product.Eva = Convert.ToDouble(_Reader[&quot;Eva&quot;].ToString());</span><br><span class="line">                _Product.imgStr = Convert.ToString(_Reader[&quot;ImageString&quot;].ToString());</span><br><span class="line">            &#125;</span><br><span class="line">            return _Product;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            throw ex;</span><br><span class="line">        &#125;</span><br><span class="line">        finally</span><br><span class="line">        &#123;</span><br><span class="line">            if (_con.State != System.Data.ConnectionState.Closed)</span><br><span class="line">                _con.Close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Product</span><br><span class="line">&#123;</span><br><span class="line">    private int _ID = 0;</span><br><span class="line">    public int ID</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _ID; &#125;</span><br><span class="line">        set &#123; _ID = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    private int _Index = 0;</span><br><span class="line">    public int Index</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _Index; &#125;</span><br><span class="line">        set &#123; _Index = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private int _F300 = 0;</span><br><span class="line">    public int F300</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _F300; &#125;</span><br><span class="line">        set &#123; _F300 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private int _P300 = 0;</span><br><span class="line">    public int P300</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _P300; &#125;</span><br><span class="line">        set &#123; _P300 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private int _F400 = 0;</span><br><span class="line">    public int F400</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _F400; &#125;</span><br><span class="line">        set &#123; _F400 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private int _P400 = 0;</span><br><span class="line">    public int P400</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _P400; &#125;</span><br><span class="line">        set &#123; _P400 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private int _F600 = 0;</span><br><span class="line">    public int F600</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _F600; &#125;</span><br><span class="line">        set &#123; _F600 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private int _P600 = 0;</span><br><span class="line">    public int P600</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _P300; &#125;</span><br><span class="line">        set &#123; _P300 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private int _F800 = 0;</span><br><span class="line">    public int F800</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _F800; &#125;</span><br><span class="line">        set &#123; _F800 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private int _P800 = 0;</span><br><span class="line">    public int P800</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _P800; &#125;</span><br><span class="line">        set &#123; _P800 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private double _A300 = 0;</span><br><span class="line">    public double A300</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _A300; &#125;</span><br><span class="line">        set &#123; _A300 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private double _A400 = 0;</span><br><span class="line">    public double A400</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _A400; &#125;</span><br><span class="line">        set &#123; _A400 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private double _A600 = 0;</span><br><span class="line">    public double A600</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _A600; &#125;</span><br><span class="line">        set &#123; _A600 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private double _A800 = 0;</span><br><span class="line">    public double A800</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _A800; &#125;</span><br><span class="line">        set &#123; _A800 = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private double _Eva = 0;</span><br><span class="line">    public double Eva</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _Eva; &#125;</span><br><span class="line">        set &#123; _Eva = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private string _imgStr = string.Empty;</span><br><span class="line">    public string imgStr</span><br><span class="line">    &#123;</span><br><span class="line">        get &#123; return _imgStr; &#125;</span><br><span class="line">        set &#123; _imgStr = value; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们以<code>GetProductDetails()</code>函数为例进行数据库连接讲解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MySqlConnection _con = new MySqlConnection(ConfigurationManager.ConnectionStrings[&quot;MySQLConnString&quot;].ConnectionString);</span><br></pre></td></tr></table></figure>
+<p>这是数据库连接字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Product&gt; _lstProducts = new List&lt;Product&gt;();</span><br><span class="line">           Product _Product = null;</span><br><span class="line"></span><br><span class="line">           if (_con.State != System.Data.ConnectionState.Open)</span><br><span class="line">               _con.Open();</span><br><span class="line"></span><br><span class="line">           MySqlCommand _cmd = _con.CreateCommand();</span><br><span class="line">           _cmd.CommandText = &quot;sql语句&quot;;</span><br><span class="line"></span><br><span class="line">           MySqlDataReader _Reader = _cmd.ExecuteReader();</span><br><span class="line"></span><br><span class="line">           while (_Reader.Read())</span><br><span class="line">           &#123;</span><br><span class="line">               //do something;</span><br><span class="line">           &#125;</span><br><span class="line">           return _lstProducts;</span><br><span class="line">       &#125;</span><br><span class="line">       catch (Exception ex)</span><br><span class="line">       &#123;</span><br><span class="line">           throw ex;</span><br><span class="line">       &#125;</span><br><span class="line">       finally</span><br><span class="line">       &#123;</span><br><span class="line">           if (_con.State != ConnectionState.Closed)</span><br><span class="line">               _con.Close();</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p>上面是，通过数据库连接字符串连接数据库，执行SQL语句，并对返回的数据进行处理。<br><strong>接下来新建一个命名为floor.ashx的 Asp.Net HTTP处理程序，代码如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Web;</span><br><span class="line">using DotSpatial.Data;</span><br><span class="line">using DotSpatial.Projections;</span><br><span class="line">using DotSpatial.Serialization;</span><br><span class="line"></span><br><span class="line">public class ProductList : IHttpHandler</span><br><span class="line">&#123;</span><br><span class="line">    string op = string.Empty;</span><br><span class="line">    string MethodName = string.Empty;</span><br><span class="line">    string CallBackMethodName = string.Empty;</span><br><span class="line">    object Parameter = string.Empty;</span><br><span class="line">    string Select = string.Empty;</span><br><span class="line">    DbProducts _DbProducts = new DbProducts();</span><br><span class="line"></span><br><span class="line">    public void ProcessRequest(HttpContext context)</span><br><span class="line">    &#123; </span><br><span class="line">        context.Response.ContentType = &quot;application/x-javascript&quot;;</span><br><span class="line">        MethodName = context.Request.Params[&quot;method&quot;];</span><br><span class="line">        Parameter = context.Request.Params[&quot;param&quot;];</span><br><span class="line">        CallBackMethodName = context.Request.Params[&quot;callbackmethod&quot;];</span><br><span class="line">        Select = context.Request.Params[&quot;select&quot;];</span><br><span class="line"></span><br><span class="line">        switch (MethodName.ToLower())</span><br><span class="line">        &#123;</span><br><span class="line">            case &quot;getproducts&quot;:</span><br><span class="line">                if (Select.ToLower() == &quot;no&quot;)</span><br><span class="line">                &#123;</span><br><span class="line">                    context.Response.Write(GetDetails(&quot;123456&quot;));</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    context.Response.Write(GetDetails(&quot;654321&quot;));</span><br><span class="line">                &#125;</span><br><span class="line">                break;</span><br><span class="line">            case &quot;getbyid&quot;:</span><br><span class="line">                context.Response.Write(GetById());</span><br><span class="line">                break;</span><br><span class="line">            case &quot;insert&quot;:</span><br><span class="line">                context.Response.Write(Insert(context));</span><br><span class="line">                break;</span><br><span class="line">            case &quot;update&quot;:</span><br><span class="line">                context.Response.Write(Update(context));</span><br><span class="line">                break;</span><br><span class="line">            case &quot;delete&quot;:</span><br><span class="line">                context.Response.Write(Delete());</span><br><span class="line">                break;</span><br><span class="line">            case &quot;uploadfile&quot;:</span><br><span class="line">                context.Response.Write(UpLoadFile(context));</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public string GetDetails(string select)</span><br><span class="line">    &#123;</span><br><span class="line">        JsonResponse _response = new JsonResponse();</span><br><span class="line">        System.Web.Script.Serialization.JavaScriptSerializer jSearializer =</span><br><span class="line">                       new System.Web.Script.Serialization.JavaScriptSerializer();</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            System.Collections.Generic.List&lt;Product&gt; _Products = _DbProducts.GetProductDetails(select);</span><br><span class="line">            _response.IsSucess = true;</span><br><span class="line">            _response.Message = string.Empty;</span><br><span class="line">            _response.CallBack = CallBackMethodName;</span><br><span class="line">            _response.ResponseData = _Products;</span><br><span class="line">            string filename = System.DateTime.Now.ToString(&quot;yyyyMMddhhmmss&quot;) + &quot;.html&quot;;</span><br><span class="line">            _response.HTML = filename;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            _response.Message = ex.Message;</span><br><span class="line">            _response.IsSucess = false;</span><br><span class="line">        &#125;</span><br><span class="line">        return jSearializer.Serialize(_response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public string GetById()</span><br><span class="line">    &#123;</span><br><span class="line">        JsonResponse _response = new JsonResponse();</span><br><span class="line">        System.Web.Script.Serialization.JavaScriptSerializer jSearializer =</span><br><span class="line">                     new System.Web.Script.Serialization.JavaScriptSerializer();</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            Product _Products = _DbProducts.GetProductById(Convert.ToInt32(Parameter));</span><br><span class="line">            _response.IsSucess = true;</span><br><span class="line">            _response.Message = string.Empty;</span><br><span class="line">            _response.CallBack = CallBackMethodName;</span><br><span class="line">            _response.ResponseData = _Products;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            _response.Message = ex.Message;</span><br><span class="line">            _response.IsSucess = false;</span><br><span class="line">        &#125;</span><br><span class="line">        return jSearializer.Serialize(_response);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public string Insert(HttpContext context)</span><br><span class="line">    &#123;</span><br><span class="line">        JsonResponse _response = new JsonResponse();</span><br><span class="line">        System.Web.Script.Serialization.JavaScriptSerializer jSearializer =</span><br><span class="line">                     new System.Web.Script.Serialization.JavaScriptSerializer();</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            Product _P = new Product();</span><br><span class="line"></span><br><span class="line">            _P.F300 = Convert.ToInt32(context.Request.Params[&quot;F300&quot;].ToString());</span><br><span class="line">            _P.P300 = Convert.ToInt32(context.Request.Params[&quot;P300&quot;].ToString());</span><br><span class="line"></span><br><span class="line">            _P.F400 = Convert.ToInt32(context.Request.Params[&quot;F400&quot;].ToString());</span><br><span class="line">            _P.P400 = Convert.ToInt32(context.Request.Params[&quot;P400&quot;].ToString());</span><br><span class="line"></span><br><span class="line">            _P.F600 = Convert.ToInt32(context.Request.Params[&quot;F600&quot;].ToString());</span><br><span class="line">            _P.P600 = Convert.ToInt32(context.Request.Params[&quot;P600&quot;].ToString());</span><br><span class="line"></span><br><span class="line">            _P.F800 = Convert.ToInt32(context.Request.Params[&quot;F800&quot;].ToString());</span><br><span class="line">            _P.F800 = Convert.ToInt32(context.Request.Params[&quot;F800&quot;].ToString());</span><br><span class="line"></span><br><span class="line">            _P.A300 = Convert.ToDouble(context.Request.Params[&quot;A300&quot;].ToString());</span><br><span class="line">            _P.A400 = Convert.ToDouble(context.Request.Params[&quot;A400&quot;].ToString());</span><br><span class="line">            _P.A600 = Convert.ToDouble(context.Request.Params[&quot;A600&quot;].ToString());</span><br><span class="line">            _P.A800 = Convert.ToDouble(context.Request.Params[&quot;A800&quot;].ToString());</span><br><span class="line">            </span><br><span class="line">            _P.Index = Convert.ToInt32(context.Request.Params[&quot;Inde&quot;].ToString());</span><br><span class="line">            </span><br><span class="line">            _response.IsSucess = true;</span><br><span class="line">            _response.CallBack = CallBackMethodName;</span><br><span class="line">            _response.ResponseData = _DbProducts.InsertProduct(_P);</span><br><span class="line">            _response.Message = &quot;SucessFully Saved&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            _response.Message = ex.Message;</span><br><span class="line">            _response.IsSucess = false;</span><br><span class="line">        &#125;</span><br><span class="line">        return jSearializer.Serialize(_response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public string Update(HttpContext context)</span><br><span class="line">    &#123;</span><br><span class="line">        JsonResponse _response = new JsonResponse();</span><br><span class="line">        System.Web.Script.Serialization.JavaScriptSerializer jSearializer =</span><br><span class="line">                     new System.Web.Script.Serialization.JavaScriptSerializer();</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            Product _P = new Product();</span><br><span class="line">            </span><br><span class="line">            _P.F300 = Convert.ToInt32(context.Request.Params[&quot;F300&quot;].ToString());</span><br><span class="line">            _P.P300 = Convert.ToInt32(context.Request.Params[&quot;P300&quot;].ToString());</span><br><span class="line">            </span><br><span class="line">            _P.F400 = Convert.ToInt32(context.Request.Params[&quot;F400&quot;].ToString());</span><br><span class="line">            _P.P400 = Convert.ToInt32(context.Request.Params[&quot;P400&quot;].ToString());</span><br><span class="line">            </span><br><span class="line">            _P.F600 = Convert.ToInt32(context.Request.Params[&quot;F600&quot;].ToString());</span><br><span class="line">            _P.P600 = Convert.ToInt32(context.Request.Params[&quot;P600&quot;].ToString());</span><br><span class="line">            </span><br><span class="line">            _P.F800 = Convert.ToInt32(context.Request.Params[&quot;F800&quot;].ToString());</span><br><span class="line">            _P.F800 = Convert.ToInt32(context.Request.Params[&quot;F800&quot;].ToString());</span><br><span class="line">            </span><br><span class="line">            _P.A300 = Convert.ToDouble(context.Request.Params[&quot;A300&quot;].ToString());</span><br><span class="line">            _P.A400 = Convert.ToDouble(context.Request.Params[&quot;A400&quot;].ToString());</span><br><span class="line">            _P.A600 = Convert.ToDouble(context.Request.Params[&quot;A600&quot;].ToString());</span><br><span class="line">            _P.A800 = Convert.ToDouble(context.Request.Params[&quot;A800&quot;].ToString());</span><br><span class="line">            _P.Index = Convert.ToInt32(context.Request.Params[&quot;Inde&quot;].ToString());</span><br><span class="line">            </span><br><span class="line">            _P.ID= Convert.ToInt32(context.Request.Params[&quot;ID&quot;].ToString());</span><br><span class="line">            </span><br><span class="line">            _response.IsSucess = true;</span><br><span class="line">            _response.Message = &quot;SucessFully Updated&quot;;</span><br><span class="line">            _response.CallBack = CallBackMethodName;</span><br><span class="line">            _response.ResponseData = _DbProducts.UpdateProduct(_P);</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            _response.Message = ex.Message;</span><br><span class="line">            _response.IsSucess = false;</span><br><span class="line">        &#125;</span><br><span class="line">        return jSearializer.Serialize(_response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public string Delete()</span><br><span class="line">    &#123;</span><br><span class="line">        JsonResponse _response = new JsonResponse();</span><br><span class="line">        System.Web.Script.Serialization.JavaScriptSerializer jSearializer =</span><br><span class="line">                     new System.Web.Script.Serialization.JavaScriptSerializer();</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            _response.IsSucess = true;</span><br><span class="line">            _response.Message = &quot;Record Sucessfully Deleted&quot;;</span><br><span class="line">            _response.CallBack = CallBackMethodName;</span><br><span class="line">            _response.ResponseData = _DbProducts.DeleteProduct(Convert.ToInt32(Parameter));</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            _response.Message = ex.Message;</span><br><span class="line">            _response.IsSucess = false;</span><br><span class="line">        &#125;</span><br><span class="line">        return jSearializer.Serialize(_response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    public string UpLoadFile(HttpContext context)</span><br><span class="line">    &#123;</span><br><span class="line">        JsonResponse _response = new JsonResponse();</span><br><span class="line">        System.Web.Script.Serialization.JavaScriptSerializer jSearializer =</span><br><span class="line">                     new System.Web.Script.Serialization.JavaScriptSerializer();</span><br><span class="line">        </span><br><span class="line">        string datapath = @&quot;D:\Mascot Dokky\appdata\&quot;;</span><br><span class="line">        string str = string.Empty;</span><br><span class="line">        </span><br><span class="line">        foreach(string file in context.Request.Files)&#123;</span><br><span class="line">        </span><br><span class="line">            var fileContent = context.Request.Files[file];</span><br><span class="line">            if (fileContent != null &amp;&amp; fileContent.ContentLength &gt; 0)&#123;</span><br><span class="line">            </span><br><span class="line">                var stream = fileContent.InputStream;</span><br><span class="line">                var fileName = fileContent.FileName;</span><br><span class="line"></span><br><span class="line">                fileContent.SaveAs(System.IO.Path.Combine(datapath,fileName));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        foreach (string key in context.Request.Form) &#123;</span><br><span class="line">       </span><br><span class="line">            var value =  context.Request.Form[key];</span><br><span class="line">            str += value;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        _response.IsSucess = true;</span><br><span class="line">        _response.Message = str;</span><br><span class="line">        _response.CallBack = CallBackMethodName;</span><br><span class="line">        _response.HTML = &quot;index.html&quot;;</span><br><span class="line"></span><br><span class="line">        return jSearializer.Serialize(_response);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public bool IsReusable</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>本文以<code>GetDetials</code>函数为例进行讲解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public string GetDetails(string select)</span><br><span class="line">   &#123;</span><br><span class="line">       JsonResponse _response = new JsonResponse();</span><br><span class="line">       System.Web.Script.Serialization.JavaScriptSerializer jSearializer =</span><br><span class="line">                      new System.Web.Script.Serialization.JavaScriptSerializer();</span><br><span class="line">       try</span><br><span class="line">       &#123;</span><br><span class="line">           System.Collections.Generic.List&lt;Product&gt; _Products = _DbProducts.GetProductDetails(select);</span><br><span class="line">           _response.IsSucess = true;</span><br><span class="line">           _response.Message = string.Empty;</span><br><span class="line">           _response.CallBack = CallBackMethodName;</span><br><span class="line">           _response.ResponseData = _Products;</span><br><span class="line">           string filename = System.DateTime.Now.ToString(&quot;yyyyMMddhhmmss&quot;) + &quot;.html&quot;;</span><br><span class="line">           _response.HTML = filename;</span><br><span class="line">       &#125;</span><br><span class="line">       catch (Exception ex)</span><br><span class="line">       &#123;</span><br><span class="line">           _response.Message = ex.Message;</span><br><span class="line">           _response.IsSucess = false;</span><br><span class="line">       &#125;</span><br><span class="line">       return jSearializer.Serialize(_response);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>本函数通过处理前端<code>ajax</code>请求，进行数据库查询操作，然后将数据序列化后传给前端，支持者就是一个完整的MySQL数据库操作。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/KailiangW/tags/Asp-Net/" rel="tag"># Asp.Net</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/KailiangW/2017/10/02/GIS相关数据下载网站、软件和工具等/" rel="next" title="GIS相关数据下载网站、软件和工具等">
+                <i class="fa fa-chevron-left"></i> GIS相关数据下载网站、软件和工具等
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/KailiangW/2017/12/02/前端入门方法总结/" rel="prev" title="前端入门方法">
+                前端入门方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">王凯亮</p>
+              <p class="site-description motion-element" itemprop="description">一个GIS专业的前端小白练级打怪的攻略</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/KailiangW/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/KailiangW/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/KailiangW/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进入正题"><span class="nav-number">2.</span> <span class="nav-text">进入正题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王凯亮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/KailiangW/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/KailiangW/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/KailiangW/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/KailiangW/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/KailiangW/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
