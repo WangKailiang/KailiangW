@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/KailiangW/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/KailiangW/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/KailiangW/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/KailiangW/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/KailiangW/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/KailiangW/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/KailiangW/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 Javascript概要1.1 核心语言DOM对客户端Javascript来说，仅仅是一个宿主对象。     客户端服务器端浏览器扩展    DOM + 内置宿主对象内置宿主对象宿主对象    浏览器扩展  1.2 语言特点 解释性语言 动态语言 基于原型的面向对象 函数式编程  字符串对象和字符串值一样，是不可改">
+<meta name="keywords" content="Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript学习笔记">
+<meta property="og:url" content="https://wangkailiang.github.io/KailiangW/2017/12/16/Javascript学习笔记/index.html">
+<meta property="og:site_name" content="逆天凌少">
+<meta property="og:description" content="1 Javascript概要1.1 核心语言DOM对客户端Javascript来说，仅仅是一个宿主对象。     客户端服务器端浏览器扩展    DOM + 内置宿主对象内置宿主对象宿主对象    浏览器扩展  1.2 语言特点 解释性语言 动态语言 基于原型的面向对象 函数式编程  字符串对象和字符串值一样，是不可改变的。所有要改变字符串内容的方法，都会生成一个新的字符串对象然后返回。 1.3数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-17T03:51:40.932Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript学习笔记">
+<meta name="twitter:description" content="1 Javascript概要1.1 核心语言DOM对客户端Javascript来说，仅仅是一个宿主对象。     客户端服务器端浏览器扩展    DOM + 内置宿主对象内置宿主对象宿主对象    浏览器扩展  1.2 语言特点 解释性语言 动态语言 基于原型的面向对象 函数式编程  字符串对象和字符串值一样，是不可改变的。所有要改变字符串内容的方法，都会生成一个新的字符串对象然后返回。 1.3数">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/KailiangW/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wangkailiang.github.io/KailiangW/2017/12/16/Javascript学习笔记/"/>
+
+
+
+
+
+  <title>Javascript学习笔记 | 逆天凌少</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/KailiangW/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">逆天凌少</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/KailiangW/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/KailiangW/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/KailiangW/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/KailiangW/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/KailiangW/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/KailiangW/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wangkailiang.github.io/KailiangW/KailiangW/2017/12/16/Javascript学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王凯亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/KailiangW/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逆天凌少">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Javascript学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-16T10:44:25+08:00">
+                2017-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/KailiangW/categories/Javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-Javascript概要"><a href="#1-Javascript概要" class="headerlink" title="1 Javascript概要"></a>1 Javascript概要</h1><h2 id="1-1-核心语言"><a href="#1-1-核心语言" class="headerlink" title="1.1 核心语言"></a>1.1 核心语言</h2><p>DOM对客户端Javascript来说，仅仅是一个宿主对象。</p>
+<table><br>    <tr><td>客户端</td><td>服务器端</td><td>浏览器扩展</td></tr><br>    <tr><td>DOM + 内置宿主对象</td><td>内置宿主对象</td><td>宿主对象</td></tr><br>    <tr><td colspan="3">浏览器扩展</td></tr><br></table>
+
+<h2 id="1-2-语言特点"><a href="#1-2-语言特点" class="headerlink" title="1.2 语言特点"></a>1.2 语言特点</h2><ul>
+<li>解释性语言</li>
+<li>动态语言</li>
+<li>基于原型的面向对象</li>
+<li>函数式编程</li>
+</ul>
+<p><strong>字符串对象和字符串值一样，是不可改变的。所有要改变字符串内容的方法，都会生成一个新的字符串对象然后返回。</strong></p>
+<h2 id="1-3数据类型转换"><a href="#1-3数据类型转换" class="headerlink" title="1.3数据类型转换"></a>1.3数据类型转换</h2><ul>
+<li>字符串到数值。再从字符串转到数值时，+运算和-运算是不同的。对于+运算，如果操作数中含有字符串值，她就将它变成字符串连接运算。</li>
+<li>数值到字符串。一般分为显式类型转换和隐式类型转换，<code>String</code>函数和<code>toString()</code>方法称为显式类型转换；隐式类型转换通常使用+运算符。  <pre>
+      //惯用的数据类型转换方法
+      function(){
+          //从数值转为字符串
+          var n = 3;
+          n + '';      //将数值3转换为字符串值'3'
+          //从字符串到数值
+          var s = 3;
+          +s;          //将字符串值'3'转换为数值3
+      }
+  </pre> </li>
+<li>布尔类型转换。在进行布尔型的数据类型转换时，应当对<code>Object</code>类型的情况多加注意。<code>Object</code>在被转换为布尔型之后必定为<code>true</code>。以下代码清单1的结果都是显示T。而像代码清单2这样，通过函数调用方式获取的结果就不再是<code>Object</code>类型，而是相应的内建类型了。<br>  <pre><pre><code>//代码清单-1
+var b = new Boolean(false);    //Object类型
+var z = new Number(0);         //Object类型
+var s = new String(&apos;&apos;);        //Object类型
+!!b;!!z;!!s;                   //true
+</code></pre>  </pre><br>  <pre><pre><code>//代码清单-2
+var b = Boolean(false);  //Boolean类型
+var z = Number(0);         //Number类型
+var s = String(&apos;&apos;);         //String类型
+!!b;!!z;!!s;             //false
+</code></pre>  </pre><h1 id="2-语句、表达式和运算符"><a href="#2-语句、表达式和运算符" class="headerlink" title="2 语句、表达式和运算符"></a>2 语句、表达式和运算符</h1><h2 id="2-1-语句"><a href="#2-1-语句" class="headerlink" title="2.1 语句"></a>2.1 语句</h2></li>
+<li>with语句。with语句用于临时改变名称（变量名或函数名）的查找范围。with语句中使用的是Object类型的。如果使用其他类型则会被转换为Object类型。在with语句中对变量名进行查找时，将会从所指定对象的属性开始查找。   <pre>
+      //with使用示例
+      var x = 1;              //全局变量
+      var obj = {x: 7; y: 8}; //Number类型
+      with(obj){
+          print(x);          //如果要查找x，则会在查找全局变量x之前先查找到obj.x
+      }
+  </pre></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/KailiangW/tags/Javascript/" rel="tag"># Javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/KailiangW/2017/12/06/HTML风格/" rel="next" title="HTML风格">
+                <i class="fa fa-chevron-left"></i> HTML风格
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">王凯亮</p>
+              <p class="site-description motion-element" itemprop="description">一个GIS专业的前端小白练级打怪的攻略</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/KailiangW/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/KailiangW/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/KailiangW/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Javascript概要"><span class="nav-number">1.</span> <span class="nav-text">1 Javascript概要</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-核心语言"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 核心语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-语言特点"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 语言特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3数据类型转换"><span class="nav-number">1.3.</span> <span class="nav-text">1.3数据类型转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-语句、表达式和运算符"><span class="nav-number">2.</span> <span class="nav-text">2 语句、表达式和运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-语句"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 语句</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王凯亮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/KailiangW/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/KailiangW/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/KailiangW/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/KailiangW/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/KailiangW/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/KailiangW/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
